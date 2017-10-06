@@ -27,27 +27,27 @@ Ping is a privacy-conscious, location-sharing mobile app. When you ping your fri
 
 ### Phase 1: Learn Technologies (2 days)
 
-React Native, Redis, FB Graph/Auth - ALL
-Messaging APIs - Rebekah, Betty
-Map APIs - Tommy
+- React Native, Redis, FB Graph/Auth - ALL
+- Messaging APIs - Rebekah, Betty
+- Map APIs - Tommy
 
 ### Phase 2: Fix existing features (3 days)
 
-Modify friend adding (1/2 day) - Betty
-Modify notifications/location update (1/2 day) - Rebekah
-Rebuild frontend (2-3 days) - Tommy, ALL
+- Modify friend adding (1/2 day) - Betty
+- Modify notifications/location update (1/2 day) - Rebekah
+- Rebuild frontend (2-3 days) - Tommy, ALL
 
 ### Phase 3: Building new features (3 days)
 
-Messaging (2-3 days) - Rebekah, Betty
-Friend add (1-2 days) - Betty
-Profile (2 days) - Tommy
+- Messaging (2-3 days) - Rebekah, Betty
+- Friend add (1-2 days) - Betty
+- Profile (2 days) - Tommy
 
 ### Phase 4: Finishing touches (2 days)
 
-Make app pretty (1-2 days) - Rebekah
-Create demo page (1 day) - Betty
-Get on app/play store (1 day) - Tommy
+- Make app pretty (1-2 days) - Rebekah
+- Create demo page (1 day) - Betty
+- Get on app/play store (1 day) - Tommy
 
 ## Plan to get more users/reviews
 
