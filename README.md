@@ -30,6 +30,7 @@ Ping is unique in that it allows you access to friend location 24/7, but due to 
 - Messaging APIs
 - Facebook Graph API (Koala)
 - Redis
+- Appetize.io
 
 ## Wireframes
 
