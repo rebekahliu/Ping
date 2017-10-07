@@ -31,6 +31,12 @@ Ping is unique in that it allows you access to friend location 24/7, but due to 
 - Facebook Graph API (Koala)
 - Redis
 
+## Wireframes
+
+![wire-frames][wireframes]
+
+[wireframes]: https://github.com/rebekahliu/Ping/blob/master/wireframes.png
+
 ## Timeline
 
 ### Phase 1: Learn Technologies (2 days)
