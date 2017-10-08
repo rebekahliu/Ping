@@ -1,21 +1,54 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  Text,
+  View,
+  Alert
+} from 'react-native';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+
+
+import {
+  StackNavigator,
+} from 'react-navigation';
+
+async function logIn() {
+  const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('1751730575119352', {
+      permissions: ['public_profile'],
+    });
+  if (type === 'success') {
+    // Get the user's name using Facebook's Graph API
+    const response = await fetch(
+      `https://graph.facebook.com/me?access_token=${token}`);
+    Alert.alert(
+      'Logged in!',
+      `Hi ${(await response.json()).name}!`,
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Home'
+  };
+
+  render() {
+    return (
+      <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
+        <Text onPress={this._handlePress}>Continue with Facebook</Text>
+      </View>
+    )
+  }
+
+  _handlePress = () => {
+    logIn();
+  }
+
+
+
+}
+
+export default StackNavigator({
+  Home: {
+    screen: HomeScreen,
   },
 });
