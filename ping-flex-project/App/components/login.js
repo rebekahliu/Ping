@@ -34,7 +34,6 @@ class Login extends React.Component {
   _startWatch = async () => {
     let { status } = await Expo.Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
-      console.log('not granted');
     } else {
       Expo.Location.watchPositionAsync({
         enableHighAccuracy: true,
@@ -45,9 +44,7 @@ class Login extends React.Component {
   }
 
   _updateLocation = (location) => {
-    Alert.alert('location', `${location.latitude}`);
-    LocationAPI.updateLocation(this.props.session_token, location);
-    console.log('updating location', location.latitude);
+    LocationAPI.updateLocation(this.props.session_token, location.coords);
   }
 
   render() {
