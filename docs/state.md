@@ -7,10 +7,10 @@ State: {
       name: "Betty Lam",
       pro_pic: ".img",
       visibility_radius: 5,
-      favoriate_locations: {
+      favorite_locations: {
         lat: 135.432,
         lng: 187.473,
-        lable: "Home"
+        label: "Home"
       }
     }
   },
