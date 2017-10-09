@@ -11,8 +11,8 @@ export default class LocationAPI {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          lat: location.latitude,
-          lng: location.longitude,
+          latitude: location.latitude,
+          longitude: location.longitude,
           session_token: session_token
         })
       });
