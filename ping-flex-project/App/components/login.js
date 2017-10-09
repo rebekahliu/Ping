@@ -44,6 +44,7 @@ class Login extends React.Component {
   }
 
   _updateLocation = (location) => {
+    // Alert.alert('location', 'updating location')
     LocationAPI.updateLocation(this.props.session_token, location.coords);
   }
 
@@ -71,8 +72,6 @@ class Login extends React.Component {
       // navigate('HomeScreen');
    }
  }
-
-
 }
 
 const styles = StyleSheet.create({
