@@ -36,20 +36,18 @@ class Login extends React.Component {
 
  _logIn = async (navigate) => {
    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('1751730575119352', {
-       permissions: ['public_profile'],
+       permissions: ['public_profile', 'user_friends'],
      });
    if (type === 'success') {
      // Get the user's name using Facebook's Graph API
      const response = await fetch(
        `https://graph.facebook.com/me?access_token=${token}`);
-       navigate('HomeScreen', {name: (await response.json()).name});
 
       this.setState({session_token: token});
-      API.doLogin((await response.json()).id,token);
-    //  Alert.alert(
-    //    'Logged in!',
-    //    `Hi ${(await response.json()).name}!`,
-    //  );
+      const parsedResp = await response.json();
+
+      API.doLogin(parsedResp.id,token);
+      navigate('HomeScreen', {name: parsedResp.name});
    }
  }
 
