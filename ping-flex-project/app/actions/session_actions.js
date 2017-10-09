@@ -18,7 +18,6 @@ export const receiveErrors = (errors) => (
   }
 );
 
-
 export const login = (fbId, token) => (dispatch) => {
   return (
     SessionAPI.login(fbId, token)
@@ -26,6 +25,5 @@ export const login = (fbId, token) => (dispatch) => {
       (currentUser) => dispatch(receiveCurrentUser(currentUser, token)),
       (errs) => dispatch(receiveErrors(errs))
     )
-
   );
 };
