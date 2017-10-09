@@ -21,10 +21,9 @@ class HomeScreen extends React.Component {
   };
 
   render() {
-    debugger
     return (
       <View style={styles.container}>
-        <Text>hai {this.props.name}</Text>
+        <Text>hai {this.props.state.session.currentUser.name}</Text>
       </View>
     );
   }
@@ -42,7 +41,7 @@ const styles = StyleSheet.create({
 
 var mapStateToProps = (state) => {
   return {
-    name: state.session.currentUser.name
+    state: state
   }
 }
 
