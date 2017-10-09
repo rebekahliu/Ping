@@ -30,13 +30,20 @@ Ping is unique in that it allows you access to friend location 24/7, but due to 
 - Messaging APIs
 - Facebook Graph API (Koala)
 - Redis
-- Appetize.io
+- Expo
 
 ## Wireframes
 
 ![wire-frames][wireframes]
 
 [wireframes]: https://github.com/rebekahliu/Ping/blob/master/wireframes.png
+
+## Weekend Progress
+Over the weekend we have:
+
+- Started learning React-Native and other tech needed
+- Familiarized ourselves with the backend
+- Set up a basic mobile app which handles account creation and login through Facebook
 
 ## Timeline
 
@@ -67,3 +74,4 @@ Ping is unique in that it allows you access to friend location 24/7, but due to 
 ## Plan to get more users/reviews
 
 Get our friends to use/share
+Submit the app to the App Store and Play Store
