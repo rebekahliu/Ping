@@ -14,10 +14,6 @@ import {
 
 class Login extends React.Component {
 
-  state = {
-    session_token: null,
-  };
-
   static navigationOptions = {
     title: 'Login'
   };
@@ -27,10 +23,7 @@ class Login extends React.Component {
     return (
       <View style={styles.container}>
         <Button title="Open FB Auth" onPress={()=>this._logIn(navigate)} />
-        {this.state.session_token ? (
-          <Text>{JSON.stringify(this.state.session_token)}</Text>
-        ) : null}
-        </View>
+      </View>
     );
   }
 
@@ -39,15 +32,16 @@ class Login extends React.Component {
        permissions: ['public_profile', 'user_friends'],
      });
    if (type === 'success') {
-     // Get the user's name using Facebook's Graph API
      const response = await fetch(
        `https://graph.facebook.com/me?access_token=${token}`);
 
       this.setState({session_token: token});
       const parsedResp = await response.json();
 
+      //need to create an action that receives a current user?
+
       API.doLogin(parsedResp.id,token);
-      navigate('HomeScreen', {name: parsedResp.name});
+      navigate('HomeScreen');
    }
  }
 

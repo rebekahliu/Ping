@@ -8,25 +8,23 @@ import {
   Alert
 } from 'react-native';
 
+import {connect} from 'react-redux';
+
 import {
   StackNavigator,
 } from 'react-navigation';
 
 class HomeScreen extends React.Component {
 
-  state = {
-    session_token: null,
-  };
-
   static navigationOptions = {
     title: 'Home'
   };
 
   render() {
-    const { navigate } = this.props.navigation
+    debugger
     return (
       <View style={styles.container}>
-        <Text>hai</Text>
+        <Text>hai {this.props.name}</Text>
       </View>
     );
   }
@@ -42,4 +40,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+var mapStateToProps = (state) => {
+  return {
+    name: state.session.currentUser.name
+  }
+}
+
+module.exports = connect(mapStateToProps)(HomeScreen);
