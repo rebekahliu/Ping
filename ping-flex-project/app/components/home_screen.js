@@ -28,27 +28,27 @@ class HomeScreen extends React.Component {
     title: 'Home'
   };
 
-  //
-  // componentWillMount() {
-  //   this._startWatch();
-  // }
-  //
-  // _startWatch = async () => {
-  //   let { status } = await Expo.Permissions.askAsync(Permissions.LOCATION);
-  //   if (status !== 'granted') {
-  //   } else {
-  //     Expo.Location.watchPositionAsync({
-  //       enableHighAccuracy: true,
-  //       timeInterval: 5000,
-  //       distanceInterval: 5,
-  //     }, this._updateLocation);
-  //   }
-  // }
-  //
-  // _updateLocation = (location) => {
-  //   // Alert.alert('location', 'updating location')
-  //   LocationAPI.updateLocation(this.props.session.session_token, location.coords);
-  // }
+
+  componentWillMount() {
+    this._startWatch();
+  }
+
+  _startWatch = async () => {
+    let { status } = await Expo.Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+    } else {
+      Expo.Location.watchPositionAsync({
+        enableHighAccuracy: true,
+        timeInterval: 5000,
+        distanceInterval: 5,
+      }, this._updateLocation);
+    }
+  }
+
+  _updateLocation = (location) => {
+    // Alert.alert('location', 'updating location')
+    LocationAPI.updateLocation(this.props.session.session_token, location.coords);
+  }
 
   render() {
 
