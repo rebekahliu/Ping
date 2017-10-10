@@ -1,5 +1,4 @@
 import React from 'react';
-import {Location, Permissions} from 'expo';
 
 import {
   Text,
@@ -8,6 +7,9 @@ import {
   StyleSheet,
   Alert
 } from 'react-native';
+
+
+import { AuthSession } from 'expo';
 
 import {connect} from 'react-redux';
 
@@ -37,20 +39,34 @@ class Login extends React.Component {
   }
 
  _logIn = async (navigate) => {
-   const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('1751730575119352', {
-       permissions: ['public_profile', 'user_friends'],
-     });
-   if (type === 'success') {
-     const response = await fetch(
-       `https://graph.facebook.com/me?access_token=${token}`);
 
-      const parsedResp = await response.json();
+   let redirectUrl = AuthSession.getRedirectUrl();
+   console.log({ redirectUrl });
 
-      //need to create an action that receives a current user?
-      await this.props.login(parsedResp.id, token);
-      navigate('HomeScreen');
-   }
- }
+   let result = await AuthSession.startAsync({
+     authUrl:
+       `https://www.facebook.com/v2.8/dialog/oauth?response_type=token` +
+       `&client_id=1751730575119352` +
+       `&redirect_uri=${encodeURIComponent(redirectUrl)}`,
+   });
+
+   if (result.type !== 'success') {
+      alert('Uh oh, something went wrong');
+      return;
+    }
+
+  let token = result.params.access_token;
+
+  const response = await fetch(
+    `https://graph.facebook.com/me?access_token=${token}`);
+
+    const parsedResp = await response.json();
+
+    //need to create an action that receives a current user?
+    await this.props.login(parsedResp.id, token);
+    navigate('HomeScreen');
+    
+  }
 }
 
 const styles = StyleSheet.create({
