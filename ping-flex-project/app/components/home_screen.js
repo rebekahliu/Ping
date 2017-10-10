@@ -1,5 +1,5 @@
 import React from 'react';
-import API from '../../api';
+
 import {
   Text,
   View,
@@ -7,8 +7,9 @@ import {
   StyleSheet,
   Alert
 } from 'react-native';
-
 import {connect} from 'react-redux';
+
+import API from '../../api';
 
 import {
   StackNavigator,
