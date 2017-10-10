@@ -16,7 +16,6 @@ import {
 } from 'react-navigation';
 
 import * as SessionActions from '../actions/session_actions';
-import LocationAPI from '../util/location_api_util';
 
 class Login extends React.Component {
   constructor(props) {
@@ -27,26 +26,6 @@ class Login extends React.Component {
     title: 'Login'
   };
 
-  componentWillMount() {
-    this._startWatch();
-  }
-
-  _startWatch = async () => {
-    let { status } = await Expo.Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-    } else {
-      Expo.Location.watchPositionAsync({
-        enableHighAccuracy: true,
-        timeInterval: 5000,
-        distanceInterval: 5,
-      }, this._updateLocation);
-    }
-  }
-
-  _updateLocation = (location) => {
-    // Alert.alert('location', 'updating location')
-    LocationAPI.updateLocation(this.props.session_token, location.coords);
-  }
 
   render() {
     const { navigate } = this.props.navigation
@@ -68,8 +47,8 @@ class Login extends React.Component {
       const parsedResp = await response.json();
 
       //need to create an action that receives a current user?
-      this.props.login(parsedResp.id, token);
-      // navigate('HomeScreen');
+      await this.props.login(parsedResp.id, token);
+      navigate('HomeScreen');
    }
  }
 }
@@ -82,12 +61,12 @@ const styles = StyleSheet.create({
   },
 });
 
-var mapStateToProps = (state) => {
-  return {
-    current_user: state.session.current_user,
-    session_token: state.session.session_token
-  }
-}
+// var mapStateToProps = (state) => {
+//   return {
+//     current_user: state.session.current_user,
+//     session_token: state.session.session_token
+//   }
+// }
 
 var mapDispatchToProps = (dispatch) => {
   return {
@@ -95,4 +74,4 @@ var mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);

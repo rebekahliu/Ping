@@ -20,10 +20,14 @@ export const receiveErrors = (errors) => (
 
 export const login = (fbId, token) => (dispatch) => {
   return (
-    SessionAPI.login(fbId, token)
-    .then(
-      (currentUser) => dispatch(receiveCurrentUser(currentUser, token)),
-      (errs) => dispatch(receiveErrors(errs))
+    SessionAPI.login(fbId, token).then(
+      (currentUser) => {
+        return dispatch(receiveCurrentUser(currentUser, token));
+      },
+      (errs) => {
+        debugger
+        return dispatch(receiveErrors(errs));
+      }
     )
   );
 };
