@@ -79,9 +79,21 @@ class HomeScreen extends React.Component {
 
 
 _pingFriend = async (emergency) => {
-  await this.props.ping(this.props.session.session_token, this.state.selectedFriendFbId, emergency);
-  this.setState({ isModalVisible: false});
-  this.props.navigation.navigate('Login');
+  let response = await this.props.ping(this.props.session.session_token, this.state.selectedFriendFbId, emergency);
+
+  this._onPingCompletion(response);
+
+};
+
+_onPingCompletion = async (response) => {
+  if (!response.friend.status) {
+  Alert.alert('Ping Failed', 'The user you tried to ping is out of range.', [{text: 'OK', onPress: ()=>{this.setState({ isModalVisible: false})}}])
+} else {
+    this.setState({ isModalVisible: false});
+    myLoc = await Expo.Location.getCurrentPositionAsync();
+    this.props.navigation.navigate('PingMap', {myLoc});
+  }
+
 };
 
 
