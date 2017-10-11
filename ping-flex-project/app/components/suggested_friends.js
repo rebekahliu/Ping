@@ -1,23 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Text, StyleSheet } from 'react-native';
+import { requestFriend } from '../actions/add_friend_actions';
+import { suggestedFriends } from '../reducers/selectors';
+import { Text, View, StyleSheet } from 'react-native';
 
 class SuggestedFriends extends React.Component {
 
+
+
   render() {
+    console.log(this.props.friends);
     return (
-      <Text>Suggested Friends Screen!</Text>
+      <View>
+        <Text>Suggested Friends Screen!</Text>
+      </View>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  
-};
+const mapStateToProps = (state) => ({
+  friends: suggestedFriends(state)
+});
 
-const mapDispatchToProps = (dispatch) => {
-
-};
+const mapDispatchToProps = (dispatch) => ({
+  requestFriend: (token, friendId) => dispatch(requestFriend(token, friendId))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SuggestedFriends);
 

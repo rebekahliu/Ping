@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 
-import API from '../../api';
+// import API from '../../api';
 import LocationAPI from '../util/location_api_util';
 
 import {

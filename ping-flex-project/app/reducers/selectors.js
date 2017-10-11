@@ -7,3 +7,8 @@ export const allFriends = (state) => {
     return friend;
   });
 };
+
+export const suggestedFriends = (state) => {
+  const friends = state.session.current_user.fb_friends;
+  return Object.keys(friends).map( id => friends[id] );
+};
