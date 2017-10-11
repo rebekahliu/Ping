@@ -41,6 +41,7 @@ class HomeScreen extends React.Component {
 
   componentWillMount() {
     this._startWatch();
+    API.registerForPushNotificationsAsync(this.props.session.session_token);
   }
 
   _startWatch = async () => {
@@ -89,8 +90,17 @@ _onPingCompletion = async (response) => {
   if (!response.friend.status) {
   Alert.alert('Ping Failed', 'The user you tried to ping is out of range.', [{text: 'OK', onPress: ()=>{this.setState({ isModalVisible: false})}}])
 } else {
+    //gotta send them a ping!
+
+
+    //go to mapView
     this.setState({ isModalVisible: false});
     myLoc = await Expo.Location.getCurrentPositionAsync();
+
+    let message = `${this.props.session.current_user.name} pinged you! They are currently at: Latitude: ${myLoc.coords.latitude} Longitude: ${myLoc.coords.longitude}`;
+
+    API.sendPushNotificationAsync(response.friend.friend.facebook_id, message);
+
     this.props.navigation.navigate('PingMap', {myLoc});
   }
 
