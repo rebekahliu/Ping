@@ -1,4 +1,5 @@
-const API_URL = 'https://gentle-anchorage-13426.herokuapp.com/api/';
+// const API_URL = 'https://gentle-anchorage-13426.herokuapp.com/api/';
+const API_URL = 'http://localhost:3000/api/';
 
 export default class SessionAPI {
   static async login(user_id, session_token) {
