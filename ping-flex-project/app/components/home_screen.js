@@ -68,21 +68,25 @@ class HomeScreen extends React.Component {
  );
 
 
- _renderItem = ({item}) => (
-  <Text
-    style={styles.friendItem}
-    onPress={() => this.setState({ isModalVisible: true, selectedFriendFbId: item.key })}
-    >
-    {item.name}
-  </Text>
-);
+  _renderItem = ({item}) => (
+    <Text
+      style={styles.friendItem}
+      onPress={() => this.setState({ isModalVisible: true, selectedFriendFbId: item.key })}
+      >
+      {item.name}
+    </Text>
+  );
 
 
-_pingFriend = async (emergency) => {
-  await this.props.ping(this.props.session.session_token, this.state.selectedFriendFbId, emergency);
-  this.setState({ isModalVisible: false});
-  this.props.navigation.navigate('Login');
-};
+  _pingFriend = async (emergency) => {
+    await this.props.ping(this.props.session.session_token, this.state.selectedFriendFbId, emergency);
+    this.setState({ isModalVisible: false});
+    this.props.navigation.navigate('Login');
+  };
+
+  _suggestedFriends = () => {
+    this.props.navigation.navigate('SuggestedFriends');
+  }
 
 
   render() {
@@ -90,26 +94,22 @@ _pingFriend = async (emergency) => {
     return (
       <View style={styles.container}>
         <Text>hai {this.props.session.current_user.name}</Text>
+        <Button onPress={this._suggestedFriends} title="Add Friends"/>
         <FlatList style={styles.friendList}
           data={this.props.friends}
           extraData={this.state}
-          renderItem={this._renderItem}
-        />
-      <Modal isVisible={this.state.isModalVisible} style={styles.bottomModal}>
-        <View style={styles.modalContent}>
-          <Text>Ping your friend!</Text>
-
-            <TouchableOpacity onPress={()=>this._pingFriend(false)}>
-              <View style={styles.button}>
-                <Text>Ping</Text>
-              </View>
-            </TouchableOpacity>
-
-
-            {this._renderButton('Close', () => this.setState({ isModalVisible: false, selectedFriendFbId: null }))}
-        </View>
-
-         </Modal>
+          renderItem={this._renderItem} />
+        <Modal isVisible={this.state.isModalVisible} style={styles.bottomModal}>
+          <View style={styles.modalContent}>
+            <Text>Ping your friend!</Text>
+              <TouchableOpacity onPress={()=>this._pingFriend(false)}>
+                <View style={styles.button}>
+                  <Text>Ping</Text>
+                </View>
+              </TouchableOpacity>
+              {this._renderButton('Close', () => this.setState({ isModalVisible: false, selectedFriendFbId: null }))}
+          </View>
+        </Modal>
       </View>
     );
   }

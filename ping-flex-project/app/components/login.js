@@ -63,7 +63,7 @@ class Login extends React.Component {
 
     //need to create an action that receives a current user?
     await this.props.login(parsedResp.id, token);
-    this.props.navigation.navigate('SuggestedFriends');
+    this.props.navigation.navigate('HomeScreen');
 
   }
 }
