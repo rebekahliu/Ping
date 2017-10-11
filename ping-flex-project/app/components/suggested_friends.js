@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { connect } from 'react-redux';
+import { Text, StyleSheet } from 'react-native';
 
 class SuggestedFriends extends React.Component {
 
@@ -10,4 +11,20 @@ class SuggestedFriends extends React.Component {
   }
 }
 
-export default SuggestedFriends;
+const mapStateToProps = (state) => {
+  
+};
+
+const mapDispatchToProps = (dispatch) => {
+
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SuggestedFriends);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
