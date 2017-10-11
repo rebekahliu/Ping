@@ -6,6 +6,7 @@ import ErrorsReducer from './errors_reducer';
 
 const RootReducer = combineReducers({
     session: SessionReducer,
+    pinged_friend: PingedFriendReducer,
     errors: ErrorsReducer,
 });
 

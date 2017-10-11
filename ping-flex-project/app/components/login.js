@@ -30,15 +30,14 @@ class Login extends React.Component {
 
 
   render() {
-    const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
-        <Button title="Open FB Auth" onPress={()=>this._logIn(navigate)} />
+        <Button title="Open FB Auth" onPress={this._logIn} />
       </View>
     );
   }
 
- _logIn = async (navigate) => {
+ _logIn = async () => {
 
    let redirectUrl = AuthSession.getRedirectUrl();
    console.log({ redirectUrl });
@@ -64,8 +63,8 @@ class Login extends React.Component {
 
     //need to create an action that receives a current user?
     await this.props.login(parsedResp.id, token);
-    navigate('HomeScreen');
-    
+    this.props.navigation.navigate('HomeScreen');
+
   }
 }
 
