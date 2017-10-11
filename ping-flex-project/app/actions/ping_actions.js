@@ -1,7 +1,7 @@
 export const RECEIVE_PINGED_FRIEND = 'RECEIVE_PINGED_FRIEND';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
-import FriendAPI from '../util/session_api_util';
+import PingAPI from '../util/ping_api_util';
 
 export const receivePingedFriend = (friend) => (
   {
@@ -17,9 +17,9 @@ export const receiveErrors = (errors) => (
   }
 );
 
-export const pingFriend = (token) => (dispatch) => {
+export const pingFriend = (token, fbId, emergency) => (dispatch) => {
   return (
-    PingAPI.pingFriend(token, friendId)
+    PingAPI.pingFriend(token, fbId, emergency)
     .then(
       (friend) => dispatch(receivePingedFriend(friend)),
       (errs) => dispatch(receiveErrors(errs))
