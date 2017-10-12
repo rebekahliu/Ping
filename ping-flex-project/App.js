@@ -21,7 +21,7 @@ const AppNav = StackNavigator({
     SuggestedFriends: { screen: SuggestedFriends },
     AddedMe: { screen: AddedMe },
     Profile: { screen: Profile },
-    ProfileSettings: { screen: ProfileSettings },
+    ProfileSettings: { screen: ProfileSettings},
 });
 
 class App extends Component {
