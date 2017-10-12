@@ -11,6 +11,7 @@ import {
   StyleSheet,
   Button,
   Slider,
+  Switch,
 } from 'react-native';
 
 class ProfileSettings extends React.Component {
@@ -18,7 +19,8 @@ class ProfileSettings extends React.Component {
     super(props)
 
     this.state = {
-      visibilityRadius: 0,
+      visibleRadius: this.props.currentUser.visible_radius,
+      findable: this.props.currentUser.findable,
     };
 
   }
@@ -52,13 +54,20 @@ class ProfileSettings extends React.Component {
           minimumValue={0}
           maximumValue={100}
           step={1}
-          value={this.state.visibilityRadius}
-          onValueChange={(value) => this.setState({visibilityRadius: value})}
+          value={this.state.visibleRadius}
+          onValueChange={(value) => this.setState({visibleRadius: value})}
 
           />
           <Text>
-            Visibility Radius {this.state.visibilityRadius}mi.
+            visible Radius {this.state.visibleRadius}mi.
           </Text>
+          <Switch
+            style={styles.switch}
+            value={this.state.findable}
+            onValueChange={(value) => this.setState({findable: value})}
+            />
+          <Text>Show me on Ping </Text>
+          <Text>While turned off, your friends will not be able to get your location. Must be turned on to send pings</Text>
       </View>
     );
   }
