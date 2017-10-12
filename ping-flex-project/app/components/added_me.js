@@ -26,7 +26,6 @@ class AddedMe extends React.Component {
   }
 
   render() {
-    console.log(this.props.friends);
     return (
       <View style={styles.container}>
         <Text>{ (this.props.friends.length ? "" : "No requests")}</Text>
