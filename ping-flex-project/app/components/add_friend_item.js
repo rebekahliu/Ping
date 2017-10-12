@@ -29,7 +29,6 @@ class AddFriendItem extends React.Component {
   }
 
   _addFriend (friendId) {
-    console.log(friendId);
     this.props.action(this.props.token, friendId);
   }
 

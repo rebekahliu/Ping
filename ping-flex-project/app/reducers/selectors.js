@@ -49,8 +49,6 @@ export const friendRequests = (state) => {
   let requests = [];
   if (pendingFriends) {
     Object.keys(pendingFriends).forEach( id => {
-      console.log(id, pendingFriends[id]);
-      console.log(pendingFriends[id].require_approval);
       if (pendingFriends[id].require_approval)
       requests.push(pendingFriends[id]);
     });

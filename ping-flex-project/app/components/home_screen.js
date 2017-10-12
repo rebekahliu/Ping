@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 
-// import API from '../../api';
+import API from '../../api';
 import LocationAPI from '../util/location_api_util';
 
 import {
@@ -43,8 +43,6 @@ class HomeScreen extends React.Component {
     this._startWatch();
     API.registerForPushNotificationsAsync(this.props.session.session_token);
   }
-
-
 
   _startWatch = async () => {
     let { status } = await Expo.Permissions.askAsync(Permissions.LOCATION);
