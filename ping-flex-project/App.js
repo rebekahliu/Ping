@@ -7,6 +7,7 @@ import Login from './app/components/login';
 import HomeScreen from './app/components/home_screen';
 import SuggestedFriends from './app/components/suggested_friends';
 import AddedMe from './app/components/added_me';
+import PingMap from './app/components/ping_map';
 
 import configureStore from './app/store/store';
 

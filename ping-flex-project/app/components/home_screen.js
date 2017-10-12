@@ -41,7 +41,10 @@ class HomeScreen extends React.Component {
 
   componentWillMount() {
     this._startWatch();
+    API.registerForPushNotificationsAsync(this.props.session.session_token);
   }
+
+
 
   _startWatch = async () => {
     let { status } = await Expo.Permissions.askAsync(Permissions.LOCATION);
@@ -77,12 +80,38 @@ class HomeScreen extends React.Component {
     </Text>
   );
 
-
   _pingFriend = async (emergency) => {
     await this.props.ping(this.props.session.session_token, this.state.selectedFriendFbId, emergency);
     this.setState({ isModalVisible: false});
     this.props.navigation.navigate('Login');
   };
+
+_pingFriend = async (emergency) => {
+  let response = await this.props.ping(this.props.session.session_token, this.state.selectedFriendFbId, emergency);
+
+  this._onPingCompletion(response);
+
+};
+
+_onPingCompletion = async (response) => {
+  if (!response.friend.status) {
+  Alert.alert('Ping Failed', 'The user you tried to ping is out of range.', [{text: 'OK', onPress: ()=>{this.setState({ isModalVisible: false})}}])
+} else {
+    //gotta send them a ping!
+
+
+    //go to mapView
+    this.setState({ isModalVisible: false});
+    myLoc = await Expo.Location.getCurrentPositionAsync();
+
+    let message = `${this.props.session.current_user.name} pinged you! They are currently at: Latitude: ${myLoc.coords.latitude} Longitude: ${myLoc.coords.longitude}`;
+
+    API.sendPushNotificationAsync(response.friend.friend.facebook_id, message);
+
+    this.props.navigation.navigate('PingMap', {myLoc});
+  }
+
+};
 
   _suggestedFriends = () => {
     this.props.navigation.navigate('SuggestedFriends');
