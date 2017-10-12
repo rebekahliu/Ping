@@ -9,6 +9,21 @@ import {
 } from 'react-native';
 
 class AddFriendItem extends React.Component {
+  disableButton() {
+    if (this.props.friend.hasOwnProperty('require_approval')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  buttonTitle() {
+    if (this.props.friend.hasOwnProperty('require_approval')) {
+      return "Pending";
+    } else {
+      return "Add";
+    }
+  }
 
   _addFriend (friendId) {
     console.log(friendId);
@@ -21,7 +36,8 @@ class AddFriendItem extends React.Component {
         <Text>{this.props.friend.name}</Text>
         <Button
           onPress={()=>this._addFriend(this.props.friend.id)}
-          title="Add" />
+          title={this.buttonTitle()}
+          disabled={this.disableButton()}/>
       </View>
     );
   }
