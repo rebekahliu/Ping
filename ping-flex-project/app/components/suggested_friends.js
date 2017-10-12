@@ -28,11 +28,11 @@ class SuggestedFriends extends React.Component {
     console.log(this.props.friends);
     return (
       <View style={styles.container}>
-        <FlatList
+        <FlatList style={{flex: 1}} contentContainerStyle={styles.friendList}
           data={this.props.friends}
           renderItem={this._renderFriends.bind(this)}
           keyExtractor={(item) => item.id}/>
-        <Text>Suggested Friends Screen!</Text>
+        <Text>{ (this.props.friends.length ? "" : "No friends found")}</Text>
       </View>
     );
   }
@@ -52,12 +52,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(SuggestedFriends);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
   friendList: {
     backgroundColor: 'blue',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     alignSelf: 'stretch',
-    flex: 1,
+
   },
 });

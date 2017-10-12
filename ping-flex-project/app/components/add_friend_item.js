@@ -3,7 +3,6 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity,
   Button,
   StyleSheet
 } from 'react-native';
@@ -32,7 +31,7 @@ class AddFriendItem extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.friend}>
         <Text>{this.props.friend.name}</Text>
         <Button
           onPress={()=>this._addFriend(this.props.friend.id)}
@@ -44,3 +43,12 @@ class AddFriendItem extends React.Component {
 }
 
 export default AddFriendItem;
+
+const styles = StyleSheet.create({
+  friend: {
+    // flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'purple'
+  }
+});
