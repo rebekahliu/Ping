@@ -15,6 +15,7 @@ import configureStore from './app/store/store';
 const AppNav = StackNavigator({
     Login: { screen: Login },
     HomeScreen: { screen: HomeScreen },
+    PingMap: { screen: PingMap },
     SuggestedFriends: { screen: SuggestedFriends },
     AddedMe: { screen: AddedMe }
 });
