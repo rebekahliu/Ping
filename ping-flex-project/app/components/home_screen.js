@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 
-import API from '../../api';
+// import API from '../../api';
 import LocationAPI from '../util/location_api_util';
 
 import {
@@ -71,15 +71,20 @@ class HomeScreen extends React.Component {
  );
 
 
- _renderItem = ({item}) => (
-  <Text
-    style={styles.friendItem}
-    onPress={() => this.setState({ isModalVisible: true, selectedFriendFbId: item.key })}
-    >
-    {item.name}
-  </Text>
-);
+  _renderItem = ({item}) => (
+    <Text
+      style={styles.friendItem}
+      onPress={() => this.setState({ isModalVisible: true, selectedFriendFbId: item.key })}
+      >
+      {item.name}
+    </Text>
+  );
 
+  _pingFriend = async (emergency) => {
+    await this.props.ping(this.props.session.session_token, this.state.selectedFriendFbId, emergency);
+    this.setState({ isModalVisible: false});
+    this.props.navigation.navigate('Login');
+  };
 
 _pingFriend = async (emergency) => {
   let response = await this.props.ping(this.props.session.session_token, this.state.selectedFriendFbId, emergency);
@@ -108,32 +113,36 @@ _onPingCompletion = async (response) => {
 
 };
 
+  _suggestedFriends = () => {
+    this.props.navigation.navigate('SuggestedFriends');
+  }
+
+  _addedMe = () => {
+    this.props.navigation.navigate('AddedMe');
+  }
 
   render() {
 
     return (
       <View style={styles.container}>
         <Text>hai {this.props.session.current_user.name}</Text>
+        <Button style={styles.navigate} onPress={this._suggestedFriends} title="Add Friends"/>
+        <Button style={styles.navigate} onPress={this._addedMe} title="Pending Requests"/>
         <FlatList style={styles.friendList}
           data={this.props.friends}
           extraData={this.state}
-          renderItem={this._renderItem}
-        />
-      <Modal isVisible={this.state.isModalVisible} style={styles.bottomModal}>
-        <View style={styles.modalContent}>
-          <Text>Ping your friend!</Text>
-
-            <TouchableOpacity onPress={()=>this._pingFriend(false)}>
-              <View style={styles.button}>
-                <Text>Ping</Text>
-              </View>
-            </TouchableOpacity>
-
-
-            {this._renderButton('Close', () => this.setState({ isModalVisible: false, selectedFriendFbId: null }))}
-        </View>
-
-         </Modal>
+          renderItem={this._renderItem} />
+        <Modal isVisible={this.state.isModalVisible} style={styles.bottomModal}>
+          <View style={styles.modalContent}>
+            <Text>Ping your friend!</Text>
+              <TouchableOpacity onPress={()=>this._pingFriend(false)}>
+                <View style={styles.button}>
+                  <Text>Ping</Text>
+                </View>
+              </TouchableOpacity>
+              {this._renderButton('Close', () => this.setState({ isModalVisible: false, selectedFriendFbId: null }))}
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -179,6 +188,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderColor: 'rgba(0, 0, 0, 0.1)',
   },
+  navigate: {
+    margin: 15,
+  }
 });
 
 var mapStateToProps = (state) => {

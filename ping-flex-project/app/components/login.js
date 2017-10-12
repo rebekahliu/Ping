@@ -24,7 +24,7 @@ class Login extends React.Component {
     super(props);
   }
 
-  static navigationOptions = {
+  static navigationOptions() {
     title: 'Login'
   };
 
