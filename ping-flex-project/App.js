@@ -6,7 +6,7 @@ import { StackNavigator } from 'react-navigation';
 import Login from './app/components/login';
 import HomeScreen from './app/components/home_screen';
 import SuggestedFriends from './app/components/suggested_friends';
-
+import AddedMe from './app/components/added_me';
 
 import configureStore from './app/store/store';
 
@@ -14,7 +14,8 @@ import configureStore from './app/store/store';
 const AppNav = StackNavigator({
     Login: { screen: Login },
     HomeScreen: { screen: HomeScreen },
-    SuggestedFriends: { screen: SuggestedFriends }
+    SuggestedFriends: { screen: SuggestedFriends },
+    AddedMe: { screen: AddedMe }
 });
 
 class App extends Component {

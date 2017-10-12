@@ -88,13 +88,17 @@ class HomeScreen extends React.Component {
     this.props.navigation.navigate('SuggestedFriends');
   }
 
+  _addedMe = () => {
+    this.props.navigation.navigate('AddedMe');
+  }
 
   render() {
 
     return (
       <View style={styles.container}>
         <Text>hai {this.props.session.current_user.name}</Text>
-        <Button onPress={this._suggestedFriends} title="Add Friends"/>
+        <Button style={styles.navigate} onPress={this._suggestedFriends} title="Add Friends"/>
+        <Button style={styles.navigate} onPress={this._addedMe} title="Pending Requests"/>
         <FlatList style={styles.friendList}
           data={this.props.friends}
           extraData={this.state}
@@ -155,6 +159,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderColor: 'rgba(0, 0, 0, 0.1)',
   },
+  navigate: {
+    margin: 15,
+  }
 });
 
 var mapStateToProps = (state) => {

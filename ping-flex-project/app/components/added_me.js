@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { requestFriend } from '../actions/add_friend_actions';
-import { suggestedFriends } from '../reducers/selectors';
+import { approveFriend } from '../actions/add_friend_actions';
+import { friendRequests } from '../reducers/selectors';
 import {
   Text,
   View,
@@ -12,7 +12,7 @@ import {
 
 import AddFriendItem from './add_friend_item';
 
-class SuggestedFriends extends React.Component {
+class AddedMe extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -21,7 +21,7 @@ class SuggestedFriends extends React.Component {
     return (
       <AddFriendItem friend={item}
         token={this.props.token}
-        action={this.props.requestFriend}/>
+        action={this.props.approveFriend}/>
     );
   }
 
@@ -29,7 +29,7 @@ class SuggestedFriends extends React.Component {
     console.log(this.props.friends);
     return (
       <View style={styles.container}>
-        <Text>{ (this.props.friends.length ? "" : "No friends found")}</Text>
+        <Text>{ (this.props.friends.length ? "" : "No requests")}</Text>
         <FlatList style={{flex: 1}} contentContainerStyle={styles.friendList}
           data={this.props.friends}
           renderItem={this._renderFriends.bind(this)}
@@ -41,14 +41,14 @@ class SuggestedFriends extends React.Component {
 
 const mapStateToProps = (state) => ({
   token: state.session.session_token,
-  friends: suggestedFriends(state)
+  friends: friendRequests(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  requestFriend: (token, friendId) => dispatch(requestFriend(token, friendId))
+  approveFriend: (token, friendId) => dispatch(approveFriend(token, friendId))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SuggestedFriends);
+export default connect(mapStateToProps, mapDispatchToProps)(AddedMe);
 
 const styles = StyleSheet.create({
   container: {

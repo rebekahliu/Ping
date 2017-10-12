@@ -9,7 +9,8 @@ import {
 
 class AddFriendItem extends React.Component {
   disableButton() {
-    if (this.props.friend.hasOwnProperty('require_approval')) {
+    const friend = this.props.friend;
+    if (friend.require_approval === false) {
       return true;
     } else {
       return false;
@@ -17,8 +18,11 @@ class AddFriendItem extends React.Component {
   }
 
   buttonTitle() {
-    if (this.props.friend.hasOwnProperty('require_approval')) {
+    const friend = this.props.friend;
+    if (friend.require_approval === false) {
       return "Pending";
+    } else if (friend.require_approval === true) {
+      return "Approve";
     } else {
       return "Add";
     }
@@ -26,7 +30,7 @@ class AddFriendItem extends React.Component {
 
   _addFriend (friendId) {
     console.log(friendId);
-    this.props.requestFriend(this.props.token, friendId);
+    this.props.action(this.props.token, friendId);
   }
 
   render() {
