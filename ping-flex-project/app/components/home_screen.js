@@ -44,6 +44,8 @@ class HomeScreen extends React.Component {
     API.registerForPushNotificationsAsync(this.props.session.session_token);
   }
 
+
+
   _startWatch = async () => {
     let { status } = await Expo.Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
