@@ -34,8 +34,10 @@ class HomeScreen extends React.Component {
     selectedFriendFbId: null,
   };
 
-  static navigationOptions = {
-    title: 'Home'
+  static navigationOptions() {
+    return {
+      header: null
+    };
   };
 
 
@@ -111,21 +113,15 @@ _onPingCompletion = async (response) => {
 
 };
 
-  _suggestedFriends = () => {
-    this.props.navigation.navigate('SuggestedFriends');
-  }
-
-  _addedMe = () => {
-    this.props.navigation.navigate('AddedMe');
+  _profile = () => {
+    this.props.navigation.navigate('Profile');
   }
 
   render() {
 
     return (
       <View style={styles.container}>
-        <Text>hai {this.props.session.current_user.name}</Text>
-        <Button style={styles.navigate} onPress={this._suggestedFriends} title="Add Friends"/>
-        <Button style={styles.navigate} onPress={this._addedMe} title="Pending Requests"/>
+        <Button style={styles.navigate} onPress={this._profile} title="Profile"/>
         <FlatList style={styles.friendList}
           data={this.props.friends}
           extraData={this.state}
@@ -152,6 +148,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 20,
   },
   friendList: {
     backgroundColor: 'blue',

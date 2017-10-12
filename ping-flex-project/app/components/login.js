@@ -25,7 +25,9 @@ class Login extends React.Component {
   }
 
   static navigationOptions() {
-    title: 'Login'
+    return {
+      header: null
+    };
   };
 
   componentWillMount() {
@@ -86,13 +88,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-// var mapStateToProps = (state) => {
-//   return {
-//     current_user: state.session.current_user,
-//     session_token: state.session.session_token
-//   }
-// }
 
 var mapDispatchToProps = (dispatch) => {
   return {
