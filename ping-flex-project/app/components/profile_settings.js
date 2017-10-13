@@ -12,10 +12,14 @@ import {
   Button,
   Slider,
   Switch,
+  Picker,
+  Image,
 } from 'react-native';
 
 import API from '../../api';
 import * as SessionActions from '../actions/session_actions';
+
+import {icons} from '../../assets/icons';
 
 
 class ProfileSettings extends React.Component {
@@ -25,6 +29,9 @@ class ProfileSettings extends React.Component {
     this.state = {
       visibleRadius: this.props.currentUser.visible_radius,
       findable: this.props.currentUser.findable,
+      customPing1: 'emergency',
+      customPing2: 'home',
+      customPing3: 'food',
     };
 
   }
@@ -56,6 +63,9 @@ class ProfileSettings extends React.Component {
 
   render() {
     const name = this.props.currentUser.name;
+    const customIcon1 = icons[this.state.customPing1];
+    const customIcon2 = icons[this.state.customPing2];
+    const customIcon3 = icons[this.state.customPing3];
 
     return(
       <View style={styles.container}>
@@ -79,6 +89,54 @@ class ProfileSettings extends React.Component {
             />
           <Text>Show me on Ping </Text>
           <Text>While turned off, your friends will not be able to get your location. Must be turned on to send pings</Text>
+
+            <Picker
+              style={[styles.picker]} itemStyle={styles.onePickerItem}
+              selectedValue={this.state.customPing1}
+              onValueChange={(itemValue) => this.setState({customPing1: itemValue})}
+            >
+              <Picker.Item label="None" value="none" />
+              <Picker.Item label="Home" value="home" />
+              <Picker.Item label="Food" value="food" />
+              <Picker.Item label="Emergency" value="emergency" />
+            </Picker>
+            <Image
+               style={{width: 25, height: 25}}
+               source={customIcon1}
+             />
+
+            <Picker
+              style={[styles.picker]} itemStyle={styles.onePickerItem}
+              selectedValue={this.state.customPing2}
+              onValueChange={(itemValue) => this.setState({customPing2: itemValue})}
+            >
+              <Picker.Item label="None" value="none" />
+              <Picker.Item label="Home" value="home" />
+              <Picker.Item label="Food" value="food" />
+              <Picker.Item label="Emergency" value="emergency" />
+            </Picker>
+            <Image
+               style={{width: 25, height: 25}}
+               source={customIcon2}
+             />
+
+            <Picker
+              style={[styles.picker]} itemStyle={styles.onePickerItem}
+              selectedValue={this.state.customPing3}
+              onValueChange={(itemValue) => this.setState({customPing3: itemValue})}
+            >
+              <Picker.Item label="None" value="none" />
+              <Picker.Item label="Home" value="home" />
+              <Picker.Item label="Food" value="food" />
+              <Picker.Item label="Emergency" value="emergency" />
+            </Picker>
+            <Image
+               style={{width: 25, height: 25}}
+               source={customIcon3}
+             />
+
+
+
       </View>
     );
   }
@@ -95,7 +153,17 @@ const styles = StyleSheet.create({
     height: 10,
     width: 200,
     margin: 10,
-  }
+  },
+  picker: {
+    width: 200,
+    height: 44,
+    borderColor: 'black',
+    borderWidth: 1,
+  },
+  onePickerItem: {
+    height: 44,
+    color: 'red'
+  },
 });
 
 var mapStateToProps = (state) => {

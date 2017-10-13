@@ -129,7 +129,6 @@ class HomeScreen extends React.Component {
 
   render() {
 
-
     return (
       <View style={styles.container}>
         <Button style={styles.navigate} onPress={this._profile} title="Profile"/>
