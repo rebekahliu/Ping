@@ -49,6 +49,7 @@ class ChatChannel extends React.Component {
     this.subscription = this.context.cable.subscriptions.create(
       { channel: "ChatChannel", chatroom_id: this.props.chatroomId }, {
         received: function(data) {
+          debugger;
           this.updateMessages(data);
         },
         updateMessages: this.updateMessages
