@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput } from 'react-native';
 import {connect} from 'react-redux';
 
 import {fetchMessages} from '../actions/message_actions';
+import MessageAPI from '../util/message_api_util';
 
 class ChatChannel extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class ChatChannel extends React.Component {
     };
 
     this.updateMessages = this.updateMessages.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.messages = this.messages.bind(this);
   }
 
@@ -21,7 +23,13 @@ class ChatChannel extends React.Component {
   };
 
   componentWillMount() {
-    this.props.fetchMessages(this.props.chatroomId);
+    this.props.fetchMessages(this.props.chatroomId)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      messages: nextProps.messages
+    })
   }
 
   componentDidMount () {
@@ -32,7 +40,7 @@ class ChatChannel extends React.Component {
     this.setState({
       messages: this.state.messages.concat([{
         content: data.content,
-        username: data.user
+        user: data.user
       }])
     })
   }
@@ -54,14 +62,14 @@ class ChatChannel extends React.Component {
 
   messages() {
     return this.state.messages.map((message, idx) => (
-      <Text key={`${idx}`}>{message.username}: {message.content}</Text>
+      <Text key={`${idx}`}>{message.user}: {message.content}</Text>
     ))
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    // console.log(e.nativeEvent.text);
-
+    this.props.createMessage(e.nativeEvent.text, this.props.chatroomId, this.props.token)
+    this.setState({text: ""})
   }
 
   render() {
@@ -89,13 +97,15 @@ const styles = StyleSheet.create({
 
 var mapStateToProps = (state) => {
   return {
-    messages: state.messages
+    messages: state.messages,
+    token: state.session.session_token
   };
 }
 
 var mapDispatchToProps = (dispatch) => {
   return {
-    fetchMessages: (chatroomId) => dispatch(fetchMessages(chatroomId))
+    fetchMessages: (chatroomId) => dispatch(fetchMessages(chatroomId)),
+    createMessage: (content, chatroomId, token) => MessageAPI.createMessage(content, chatroomId, token)
   };
 }
 

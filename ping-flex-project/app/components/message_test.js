@@ -4,7 +4,7 @@ import ActionCableProvider from 'react-actioncable-provider';
 
 import ChatChannel from './chat_channel';
 
-const cable = ActionCable.createConsumer('https://1dd8c576.ngrok.io/cable');
+const cable = ActionCable.createConsumer('https://7c6a6c85.ngrok.io/cable');
 
 export default function Container (props) {
     return (

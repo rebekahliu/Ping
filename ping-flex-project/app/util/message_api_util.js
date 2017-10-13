@@ -1,8 +1,8 @@
-const API_URL = 'https://1dd8c576.ngrok.io/api/';
+const API_URL = 'https://7c6a6c85.ngrok.io/api/';
 
 export default class MessageAPI {
 
-  static async createMessage(content, chatroomId) {
+  static async createMessage(content, chatroomId, token) {
     try {
       let response = await fetch(API_URL + 'messages', {
         method: 'POST',
@@ -12,10 +12,11 @@ export default class MessageAPI {
         },
         body: JSON.stringify({
           content: content,
-          chatroom_id: chatroomId
+          chatroom_id: chatroomId,
+          session_token: token
         })
       });
-      let responseJSON = await response.json();
+      return response.json();
     } catch (error) {
       console.error(error);
     }
@@ -30,7 +31,7 @@ export default class MessageAPI {
           'Content-Type': 'application/json',
         }
       });
-      let responseJSON = await response.json();
+      return response.json();
     } catch (error) {
       console.error(error);
     }
