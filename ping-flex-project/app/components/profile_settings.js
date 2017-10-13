@@ -14,6 +14,10 @@ import {
   Switch,
 } from 'react-native';
 
+import API from '../../api';
+import * as SessionActions from '../actions/session_actions';
+
+
 class ProfileSettings extends React.Component {
   constructor(props) {
     super(props)
@@ -25,15 +29,22 @@ class ProfileSettings extends React.Component {
 
   }
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ navigation }) => {
+    return {
       title: 'Settings',
       headerBackTitle: null,
       headerRight: <Button title="Done" onPress={() => {navigation.state.params.handleSave(navigation)}} />,
-  });
+  };};
 
 
-  saveDetails(navigation) {
+  saveDetails = async (navigation) => {
     //save the details based on state, then go back
+    let settings = {
+      findable: this.state.findable, visible_radius: this.state.visibleRadius
+    };
+
+    let response = await this.props.updateSettings(this.props.session.session_token, settings)
+
     navigation.goBack();
   }
 
@@ -89,8 +100,15 @@ const styles = StyleSheet.create({
 
 var mapStateToProps = (state) => {
   return {
+    session: state.session,
     currentUser: state.session.current_user,
   };
 }
 
-export default connect(mapStateToProps, null)(ProfileSettings);
+var mapDispatchToProps = (dispatch) => {
+  return {
+    updateSettings: (token, settings) => dispatch(SessionActions.updateUser(token, settings))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileSettings);
