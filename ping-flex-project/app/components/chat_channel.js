@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 
 class ChatChannel extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      messages: []
+      messages: [],
+      text: ""
     };
 
     this.updateMessages = this.updateMessages.bind(this);
@@ -31,7 +32,7 @@ class ChatChannel extends React.Component {
 
   setupSubscription() {
     this.subscription = this.context.cable.subscriptions.create(
-      "ChatChannel", {
+      { channel: "ChatChannel", chatroom_id: 1 }, {
         received: function(data) {
           this.updateMessages(data);
         },
@@ -50,10 +51,22 @@ class ChatChannel extends React.Component {
     ))
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    // console.log(e.nativeEvent.text);
+
+  }
+
   render() {
     return (
       <View style={styles.container}>
         {this.messages()}
+        <TextInput
+        style={{height: 40, width: 100, borderColor: 'gray', borderWidth: 1}}
+        onChangeText={(text) => this.setState({text})}
+        value={this.state.text}
+        onSubmitEditing={this.handleSubmit}
+        />
       </View>
     );
   }

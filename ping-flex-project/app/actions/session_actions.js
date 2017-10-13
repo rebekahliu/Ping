@@ -25,7 +25,6 @@ export const login = (fbId, token) => (dispatch) => {
         return dispatch(receiveCurrentUser(currentUser, token));
       },
       (errs) => {
-        debugger
         return dispatch(receiveErrors(errs));
       }
     )

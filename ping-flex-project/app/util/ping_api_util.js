@@ -19,7 +19,6 @@ export default class PingAPI {
       });
       return response.json();
     } catch (error) {
-      debugger
       console.error(error);
     }
   }
