@@ -1,35 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import {connect} from 'react-redux';
+import ActionCable from 'react-native-actioncable';
+import ActionCableProvider from 'react-actioncable-provider';
 
-class MessageTest extends React.createClass {
-  componentWillMount() {
-    window.App.cable.subscriptions.create({
-      channel: 'messages'
-    });
-  }
+import ChatChannel from './chat_channel';
 
-  render() {
+const cable = ActionCable.createConsumer('https://1dd8c576.ngrok.io/cable');
+
+export default function Container (props) {
     return (
-      <View style={styles.container}>
-        <Text>Hello</Text>
-      </View>
+        <ActionCableProvider cable={cable}>
+            <ChatChannel />
+        </ActionCableProvider>
     );
-  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
-var mapStateToProps = (state) => {
-  return {
-    chats: state.chats
-  };
-};
-
-module.exports = connect(mapStateToProps, null)(MessageTest);

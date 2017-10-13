@@ -8,7 +8,9 @@
   "dependencies": {
     "expo": "^21.0.0",
     "react": "16.0.0-alpha.12",
+    "react-actioncable-provider": "^1.0.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.2.tar.gz",
+    "react-native-actioncable": "0.0.3",
     "react-native-modal": "^4.0.0",
     "react-navigation": "^1.0.0-beta.13",
     "react-redux": "^5.0.6",
