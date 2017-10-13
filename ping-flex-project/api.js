@@ -8,6 +8,26 @@ const SEND_PUSH_ENDPOINT = 'https://gentle-anchorage-13426.herokuapp.com/api/sen
 
 export default class API {
 
+  static async updateSettings(session_token, settings) {
+    // Send the push notification!
+    try {
+      let response = await fetch(API_URL + 'update_settings', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          session_token: session_token,
+          settings: settings
+        })
+      });
+      return response.json();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   static async sendPushNotificationAsync(friend_facebook_id, message) {
     // Send the push notification!
     return fetch(SEND_PUSH_ENDPOINT, {
