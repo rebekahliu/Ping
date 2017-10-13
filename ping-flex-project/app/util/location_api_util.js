@@ -1,4 +1,5 @@
-const API_URL = 'https://gentle-anchorage-13426.herokuapp.com/api/';
+// const API_URL = 'https://gentle-anchorage-13426.herokuapp.com/api/';
+const API_URL = 'https://7c6a6c85.ngrok.io/api/';
 
 export default class LocationAPI {
 

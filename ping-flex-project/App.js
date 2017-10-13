@@ -8,11 +8,11 @@ import HomeScreen from './app/components/home_screen';
 import SuggestedFriends from './app/components/suggested_friends';
 import AddedMe from './app/components/added_me';
 import PingMap from './app/components/ping_map';
+import MessageTest from './app/components/message_test';
 import Profile from './app/components/profile';
 import ProfileSettings from './app/components/profile_settings';
 
 import configureStore from './app/store/store';
-
 
 const AppNav = StackNavigator({
     Login: { screen: Login },
@@ -22,6 +22,7 @@ const AppNav = StackNavigator({
     AddedMe: { screen: AddedMe },
     Profile: { screen: Profile },
     ProfileSettings: { screen: ProfileSettings},
+    MessageTest: { screen: MessageTest },
 });
 
 class App extends Component {
@@ -33,7 +34,5 @@ class App extends Component {
     );
   }
 }
-
-
 
 export default App;

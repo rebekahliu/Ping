@@ -30,6 +30,8 @@ import {allFriends} from '../reducers/selectors.js';
 
 import * as PingActions from '../actions/ping_actions';
 
+import FriendIndexItem from './friend_index_item';
+
 class HomeScreen extends React.Component {
 
   state = {
@@ -74,27 +76,23 @@ class HomeScreen extends React.Component {
    </TouchableOpacity>
  );
 
-
-  _renderItem = ({item}) => (
-    <Text
-      style={styles.friendItem}
-      onPress={() => this.setState({ isModalVisible: true, selectedFriendFbId: item.key })}
-      >
-      {item.name}
-    </Text>
-  );
+ _renderItem = ({item}) => (
+   <FriendIndexItem
+     friend={item}
+     onPress={() => this.setState({ isModalVisible: true, selectedFriendFbId: item.key })}
+     style={styles.friendItem}
+     navigation={this.props.navigation}
+     />
+);
 
   _pingFriend = async (pingType) => {
     let emergency = false;
     if (pingType == 'emergency') {
       emergency = true;
     }
-
     let response = await this.props.ping(this.props.session.session_token, this.state.selectedFriendFbId, emergency);
     this.setState({ isModalVisible: false, pingType: 'default'});
-
     this._onPingCompletion(response, pingType);
-
   };
 
   _onPingCompletion = async (response, pingType) => {
