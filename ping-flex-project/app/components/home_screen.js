@@ -10,6 +10,8 @@ import {
   Alert,
   FlatList,
   TouchableOpacity,
+  TouchableHighlight,
+  Image,
 } from 'react-native';
 import {connect} from 'react-redux';
 
@@ -23,6 +25,7 @@ import {
 import {Location, Permissions} from 'expo';
 
 
+
 import {allFriends} from '../reducers/selectors.js';
 
 import * as PingActions from '../actions/ping_actions';
@@ -34,15 +37,19 @@ class HomeScreen extends React.Component {
   state = {
     isModalVisible: false,
     selectedFriendFbId: null,
+    pingType: 'default',
   };
 
-  static navigationOptions = {
-    title: 'Home'
+  static navigationOptions() {
+    return {
+      header: null
+    };
   };
 
 
   componentWillMount() {
     this._startWatch();
+    API.registerForPushNotificationsAsync(this.props.session.session_token);
   }
 
   _startWatch = async () => {
@@ -69,7 +76,6 @@ class HomeScreen extends React.Component {
    </TouchableOpacity>
  );
 
-
  _renderItem = ({item}) => (
    <FriendIndexItem
      friend={item}
@@ -79,50 +85,95 @@ class HomeScreen extends React.Component {
      />
 );
 
-_pingFriend = async (emergency) => {
-  let response = await this.props.ping(this.props.session.session_token, this.state.selectedFriendFbId, emergency);
+  _pingFriend = async (pingType) => {
+    let emergency = false;
+    if (pingType == 'emergency') {
+      emergency = true;
+    }
+    let response = await this.props.ping(this.props.session.session_token, this.state.selectedFriendFbId, emergency);
+    this.setState({ isModalVisible: false, pingType: 'default'});
+    this._onPingCompletion(response, pingType);
+  };
 
-  this._onPingCompletion(response);
+  _onPingCompletion = async (response, pingType) => {
+    if (!response.friend.status) {
+    Alert.alert('Ping Failed', 'The user you tried to ping is out of range.', [{text: 'OK', onPress: ()=>{this.setState({ isModalVisible: false})}}])
+  } else {
+      //gotta send them a ping!
+      this.setState({ isModalVisible: false});
+      myLoc = await Expo.Location.getCurrentPositionAsync();
 
-};
+      let message = `${this.props.session.current_user.name}` + pingMessages[pingType];
 
-_onPingCompletion = async (response) => {
-  if (!response.friend.status) {
-  Alert.alert('Ping Failed', 'The user you tried to ping is out of range.', [{text: 'OK', onPress: ()=>{this.setState({ isModalVisible: false})}}])
-} else {
-    this.setState({ isModalVisible: false});
-    myLoc = await Expo.Location.getCurrentPositionAsync();
-    this.props.navigation.navigate('PingMap', {myLoc});
+      API.sendPushNotificationAsync(response.friend.friend.facebook_id, message);
+      //go to mapView
+      this.props.navigation.navigate('PingMap', {myLoc});
+    }
+
+  };
+
+  _profile = () => {
+    this.props.navigation.navigate('Profile');
   }
 
-};
+  _togglePingType = (pingType) => {
+    if (this.state.pingType == pingType) {
+      this.setState({pingType: 'default'})
+    } else {
+      this.setState({pingType: pingType})
+    }
+  }
 
 
   render() {
 
+
     return (
       <View style={styles.container}>
-        <Text>hai {this.props.session.current_user.name}</Text>
+        <Button style={styles.navigate} onPress={this._profile} title="Profile"/>
         <FlatList style={styles.friendList}
           data={this.props.friends}
           extraData={this.state}
-          renderItem={this._renderItem}
-        />
-      <Modal isVisible={this.state.isModalVisible} style={styles.bottomModal}>
-        <View style={styles.modalContent}>
-          <Text>Ping your friend!</Text>
+          renderItem={this._renderItem} />
+        <Modal isVisible={this.state.isModalVisible} style={styles.bottomModal}>
+          <View style={styles.modalContent}>
+            <Text>Ping your friend!</Text>
 
-            <TouchableOpacity onPress={()=>this._pingFriend(false)}>
+              <TouchableHighlight
+               onPress={()=> this._togglePingType('emergency')}
+               style={[styles.pingRadio, this.state.pingType == 'emergency' && styles.pingRadioSelected]}>
+               <Image
+                  style={{width: 25, height: 25}}
+                  source={require('../../assets/icons/emergencyPing.png')}
+                />
+             </TouchableHighlight>
+
+              <TouchableHighlight
+               onPress={()=> this._togglePingType('home')}
+               style={[styles.pingRadio, this.state.pingType == 'home' && styles.pingRadioSelected]}>
+               <Image
+                  style={{width: 25, height: 25}}
+                  source={require('../../assets/icons/homePing.png')}
+                />
+             </TouchableHighlight>
+
+              <TouchableHighlight
+               onPress={()=> this._togglePingType('food')}
+               style={[styles.pingRadio, this.state.pingType == 'food' && styles.pingRadioSelected]}>
+               <Image
+                  style={{width: 25, height: 25}}
+                  source={require('../../assets/icons/foodPing.png')}
+                />
+             </TouchableHighlight>
+
+            <TouchableOpacity onPress={()=>this._pingFriend(this.state.pingType)}>
               <View style={styles.button}>
                 <Text>Ping</Text>
               </View>
             </TouchableOpacity>
-
-
             {this._renderButton('Close', () => this.setState({ isModalVisible: false, selectedFriendFbId: null }))}
-        </View>
-
-         </Modal>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -134,6 +185,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 20,
   },
   friendList: {
     backgroundColor: 'blue',
@@ -168,7 +220,24 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderColor: 'rgba(0, 0, 0, 0.1)',
   },
+  navigate: {
+    margin: 15,
+  },
+  pingRadio: {
+    backgroundColor: 'white',
+  },
+  pingRadioSelected: {
+    backgroundColor: 'lightblue',
+  }
 });
+
+//wrap default in a string so it doesn't get picked up as a js keyword
+const pingMessages = {
+  'default': " pinged you!",
+  home: " pinged you: Hey, are you home?",
+  food: " pinged you: Hey, want to get food?",
+  emergency: " emergency pinged you: Are you ok?",
+};
 
 var mapStateToProps = (state) => {
   return {

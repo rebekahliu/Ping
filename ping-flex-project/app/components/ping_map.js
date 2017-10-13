@@ -24,8 +24,10 @@ import {connect} from 'react-redux';
 class PingMap extends React.Component {
 
 
-  static navigationOptions = {
-    title: 'PingMap'
+  static navigationOptions() {
+    return {
+      title: 'Ping Map'
+    };
   };
 
 

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 
-import { AuthSession } from 'expo';
+import { AuthSession, Notifications } from 'expo';
 
 import {connect} from 'react-redux';
 
@@ -24,8 +24,21 @@ class Login extends React.Component {
     super(props);
   }
 
-  static navigationOptions = {
-    title: 'Login'
+  static navigationOptions() {
+    return {
+      header: null
+    };
+  };
+
+  componentWillMount() {
+    this._notificationSubscription = Notifications.addListener(this._handleNotification);
+  }
+
+  _handleNotification = (notification) => {
+    if(notification.data.message != "Welcome back!") {
+      //should change this to a nice message-like thing that slides in at top and disappears after a bit
+      Alert.alert('Incoming Ping',notification.data.message);
+    }
   };
 
 
@@ -74,13 +87,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-// var mapStateToProps = (state) => {
-//   return {
-//     current_user: state.session.current_user,
-//     session_token: state.session.session_token
-//   }
-// }
 
 var mapDispatchToProps = (dispatch) => {
   return {
