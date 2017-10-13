@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import Modal from 'react-native-modal';
 
@@ -13,7 +14,9 @@ import {
   TouchableHighlight,
   Image,
 } from 'react-native';
-import {connect} from 'react-redux';
+
+import {icons} from '../../assets/icons';
+
 
 import API from '../../api';
 import LocationAPI from '../util/location_api_util';
@@ -129,6 +132,10 @@ class HomeScreen extends React.Component {
 
   render() {
 
+    const customIcon1 = icons[this.props.currentUser.custom_ping_icons[0]];
+    const customIcon2 = icons[this.props.currentUser.custom_ping_icons[1]];
+    const customIcon3 = icons[this.props.currentUser.custom_ping_icons[2]];
+
     return (
       <View style={styles.container}>
         <Button style={styles.navigate} onPress={this._profile} title="Profile"/>
@@ -141,29 +148,29 @@ class HomeScreen extends React.Component {
             <Text>Ping your friend!</Text>
 
               <TouchableHighlight
-               onPress={()=> this._togglePingType('emergency')}
-               style={[styles.pingRadio, this.state.pingType == 'emergency' && styles.pingRadioSelected]}>
+               onPress={()=> this._togglePingType(this.props.currentUser.custom_ping_icons[0])}
+               style={[styles.pingRadio, this.state.pingType == this.props.currentUser.custom_ping_icons[0] && styles.pingRadioSelected]}>
                <Image
                   style={{width: 25, height: 25}}
-                  source={require('../../assets/icons/emergencyPing.png')}
+                  source={customIcon1}
                 />
              </TouchableHighlight>
 
               <TouchableHighlight
-               onPress={()=> this._togglePingType('home')}
-               style={[styles.pingRadio, this.state.pingType == 'home' && styles.pingRadioSelected]}>
+               onPress={()=> this._togglePingType(this.props.currentUser.custom_ping_icons[1])}
+               style={[styles.pingRadio, this.state.pingType == this.props.currentUser.custom_ping_icons[1] && styles.pingRadioSelected]}>
                <Image
                   style={{width: 25, height: 25}}
-                  source={require('../../assets/icons/homePing.png')}
+                  source={customIcon2}
                 />
              </TouchableHighlight>
 
               <TouchableHighlight
-               onPress={()=> this._togglePingType('food')}
-               style={[styles.pingRadio, this.state.pingType == 'food' && styles.pingRadioSelected]}>
+               onPress={()=> this._togglePingType(this.props.currentUser.custom_ping_icons[2])}
+               style={[styles.pingRadio, this.state.pingType == this.props.currentUser.custom_ping_icons[2] && styles.pingRadioSelected]}>
                <Image
                   style={{width: 25, height: 25}}
-                  source={require('../../assets/icons/foodPing.png')}
+                  source={customIcon3}
                 />
              </TouchableHighlight>
 
@@ -235,6 +242,7 @@ const styles = StyleSheet.create({
 //wrap default in a string so it doesn't get picked up as a js keyword
 const pingMessages = {
   'default': " pinged you!",
+  none: " pinged you!",
   home: " pinged you: Hey, are you home?",
   food: " pinged you: Hey, want to get food?",
   emergency: " emergency pinged you: Are you ok?",
@@ -243,6 +251,7 @@ const pingMessages = {
 var mapStateToProps = (state) => {
   return {
     session: state.session,
+    currentUser: state.session.current_user,
     friends: allFriends(state),
     pinged_friend: state.pinged_friend,
   };
