@@ -23,15 +23,12 @@ export default class MessageAPI {
 
   static async fetchMessages(chatroomId) {
     try {
-      let response = await fetch(API_URL + 'messages', {
+      let response = await fetch(API_URL + `messages/${chatroomId}`, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          chatroom_id: chatroomId
-        })
+        }
       });
       let responseJSON = await response.json();
     } catch (error) {

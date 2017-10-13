@@ -9,7 +9,7 @@ const cable = ActionCable.createConsumer('https://1dd8c576.ngrok.io/cable');
 export default function Container (props) {
     return (
         <ActionCableProvider cable={cable}>
-            <ChatChannel />
+          <ChatChannel chatroomId={props.navigation.state.params.chatroomId}/>
         </ActionCableProvider>
     );
 }

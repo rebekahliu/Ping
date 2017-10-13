@@ -1,5 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
+import {connect} from 'react-redux';
+
+import {fetchMessages} from '../actions/message_actions';
 
 class ChatChannel extends React.Component {
   constructor(props) {
@@ -17,6 +20,14 @@ class ChatChannel extends React.Component {
     cable: PropTypes.object.isRequired
   };
 
+  componentWillMount() {
+    this.props.fetchMessages(this.props.chatroomId);
+  }
+
+  componentDidMount () {
+    this.setupSubscription();
+  }
+
   updateMessages(data) {
     this.setState({
       messages: this.state.messages.concat([{
@@ -26,13 +37,9 @@ class ChatChannel extends React.Component {
     })
   }
 
-  componentDidMount () {
-    this.setupSubscription();
-  }
-
   setupSubscription() {
     this.subscription = this.context.cable.subscriptions.create(
-      { channel: "ChatChannel", chatroom_id: 1 }, {
+      { channel: "ChatChannel", chatroom_id: this.props.chatroomId }, {
         received: function(data) {
           this.updateMessages(data);
         },
@@ -80,4 +87,16 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = ChatChannel;
+var mapStateToProps = (state) => {
+  return {
+    messages: state.messages
+  };
+}
+
+var mapDispatchToProps = (dispatch) => {
+  return {
+    fetchMessages: (chatroomId) => dispatch(fetchMessages(chatroomId))
+  };
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(ChatChannel);
