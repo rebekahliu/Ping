@@ -4,7 +4,7 @@ import ActionCableProvider from 'react-actioncable-provider';
 
 import ChatChannel from './chat_channel';
 
-const cable = ActionCable.createConsumer('https://7c6a6c85.ngrok.io/cable');
+const cable = ActionCable.createConsumer('https://gentle-anchorage-13426.herokuapp.com/cable');
 
 export default function Container (props) {
     return (
