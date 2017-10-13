@@ -29,9 +29,9 @@ class ProfileSettings extends React.Component {
     this.state = {
       visibleRadius: this.props.currentUser.visible_radius,
       findable: this.props.currentUser.findable,
-      customPing1: 'emergency',
-      customPing2: 'home',
-      customPing3: 'food',
+      customPing1: this.props.currentUser.custom_ping_icons[0],
+      customPing2: this.props.currentUser.custom_ping_icons[1],
+      customPing3: this.props.currentUser.custom_ping_icons[2],
     };
 
   }
@@ -47,7 +47,7 @@ class ProfileSettings extends React.Component {
   saveDetails = async (navigation) => {
     //save the details based on state, then go back
     let settings = {
-      findable: this.state.findable, visible_radius: this.state.visibleRadius
+      findable: this.state.findable, visible_radius: this.state.visibleRadius, custom_ping_icons: [this.state.customPing1, this.state.customPing2, this.state.customPing3],
     };
 
     let response = await this.props.updateSettings(this.props.session.session_token, settings)
