@@ -97,8 +97,12 @@ class ProfileSettings extends React.Component {
             >
               <Picker.Item label="None" value="none" />
               <Picker.Item label="Home" value="home" />
-              <Picker.Item label="Food" value="food" />
+              <Picker.Item label="Work" value="work" />
+              <Picker.Item label="School" value="school" />
               <Picker.Item label="Emergency" value="emergency" />
+              <Picker.Item label="Food" value="food" />
+              <Picker.Item label="Drinks" value="drinks" />
+              <Picker.Item label="Coffee" value="coffee" />
             </Picker>
             <Image
                style={{width: 25, height: 25}}
@@ -112,8 +116,12 @@ class ProfileSettings extends React.Component {
             >
               <Picker.Item label="None" value="none" />
               <Picker.Item label="Home" value="home" />
-              <Picker.Item label="Food" value="food" />
+              <Picker.Item label="Work" value="work" />
+              <Picker.Item label="School" value="school" />
               <Picker.Item label="Emergency" value="emergency" />
+              <Picker.Item label="Food" value="food" />
+              <Picker.Item label="Drinks" value="drinks" />
+              <Picker.Item label="Coffee" value="coffee" />
             </Picker>
             <Image
                style={{width: 25, height: 25}}
@@ -127,8 +135,12 @@ class ProfileSettings extends React.Component {
             >
               <Picker.Item label="None" value="none" />
               <Picker.Item label="Home" value="home" />
-              <Picker.Item label="Food" value="food" />
+              <Picker.Item label="Work" value="work" />
+              <Picker.Item label="School" value="school" />
               <Picker.Item label="Emergency" value="emergency" />
+              <Picker.Item label="Food" value="food" />
+              <Picker.Item label="Drinks" value="drinks" />
+              <Picker.Item label="Coffee" value="coffee" />
             </Picker>
             <Image
                style={{width: 25, height: 25}}
