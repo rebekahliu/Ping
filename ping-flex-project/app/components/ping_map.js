@@ -22,13 +22,21 @@ import {connect} from 'react-redux';
 
 
 class PingMap extends React.Component {
+  constructor(props) {
+    super(props)
+  }
 
 
   static navigationOptions({navigation}) {
+    let chatroomId = navigation.state.params.pingedFriend.chatroom_id
     return {
-      title: `${navigation.state.params.pingedFriend.friend.name}`
+      title: `${navigation.state.params.pingedFriend.friend.name}`,
+      headerRight: <Button
+        onPress={()=>navigation.navigate('MessageTest', {chatroomId})}
+        title='Chat'/>,
     };
   };
+
 
 
 
