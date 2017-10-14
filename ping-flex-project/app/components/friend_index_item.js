@@ -4,7 +4,8 @@ import {
   View,
   Image,
   Button,
-  StyleSheet
+  StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 
 class FriendIndexItem extends React.Component {
@@ -20,12 +21,12 @@ class FriendIndexItem extends React.Component {
 
   render() {
     return (
-      <View style={styles.friend}>
+      <TouchableOpacity style={styles.friend} onPress={this.props.onFriendPress}>
         <Text>{this.props.friend.name}</Text>
         <Button
           onPress={()=>this.openChat(this.props.friend.chatroom_id)}
           title='chat'/>
-      </View>
+      </TouchableOpacity>
     );
   }
 }

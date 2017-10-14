@@ -79,10 +79,15 @@ class HomeScreen extends React.Component {
    </TouchableOpacity>
  );
 
+ _onFriendPress = () => {
+   this.setState({ isModalVisible: true} )
+ };
+
+
  _renderItem = ({item}) => (
    <FriendIndexItem
      friend={item}
-     onPress={() => this.setState({ isModalVisible: true, selectedFriendFbId: item.key })}
+     onFriendPress={this._onFriendPress.bind(this)}
      style={styles.friendItem}
      navigation={this.props.navigation}
      />
