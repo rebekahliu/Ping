@@ -24,9 +24,9 @@ import {connect} from 'react-redux';
 class PingMap extends React.Component {
 
 
-  static navigationOptions() {
+  static navigationOptions({navigation}) {
     return {
-      title: 'Ping Map'
+      title: `${navigation.state.params.pingedFriend.friend.name}`
     };
   };
 

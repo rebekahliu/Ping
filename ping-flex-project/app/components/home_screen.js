@@ -115,7 +115,7 @@ class HomeScreen extends React.Component {
 
       API.sendPushNotificationAsync(response.friend.friend.facebook_id, message);
       //go to mapView
-      this.props.navigation.navigate('PingMap', {myLoc});
+      this.props.navigation.navigate('PingMap', {myLoc, pingedFriend: response.friend});
     }
 
   };
