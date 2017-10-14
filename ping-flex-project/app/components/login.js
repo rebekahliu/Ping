@@ -8,6 +8,12 @@ import {
   Alert
 } from 'react-native';
 
+import Store from 'react-native-store';
+
+const DB = {
+    'fbToken': Store.model('fbToken'),
+}
+
 
 import { AuthSession, Notifications } from 'expo';
 
@@ -39,7 +45,14 @@ class Login extends React.Component {
       //should change this to a nice message-like thing that slides in at top and disappears after a bit
       Alert.alert('Incoming Ping',notification.data.message);
     }
-  };
+  }
+
+  _setToken = (token, fbId) => {
+    DB.fbToken.add({
+      token: token,
+      fbId: fbId,
+    });
+  }
 
 
   render() {
@@ -51,10 +64,8 @@ class Login extends React.Component {
   }
 
  _logIn = async () => {
-
    let redirectUrl = AuthSession.getRedirectUrl();
    console.log({ redirectUrl });
-
    let result = await AuthSession.startAsync({
      authUrl:
        `https://www.facebook.com/v2.8/dialog/oauth?response_type=token` +
@@ -73,6 +84,8 @@ class Login extends React.Component {
     `https://graph.facebook.com/me?access_token=${token}`);
 
     const parsedResp = await response.json();
+    this._setToken(token, parsedResp.id);
+
 
     //need to create an action that receives a current user?
     await this.props.login(parsedResp.id, token);
