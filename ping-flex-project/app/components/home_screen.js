@@ -40,6 +40,7 @@ class HomeScreen extends React.Component {
   state = {
     isModalVisible: false,
     selectedFriendFbId: null,
+    selectedFriendName: null,
     pingType: 'default',
   };
 
@@ -79,10 +80,15 @@ class HomeScreen extends React.Component {
    </TouchableOpacity>
  );
 
+ _onFriendPress = (friend) => {
+   this.setState({ isModalVisible: true, selectedFriendFbId: friend.key, selectedFriendName: friend.name} )
+ };
+
+
  _renderItem = ({item}) => (
    <FriendIndexItem
      friend={item}
-     onPress={() => this.setState({ isModalVisible: true, selectedFriendFbId: item.key })}
+     onFriendPress={()=>{this._onFriendPress(item)}}
      style={styles.friendItem}
      navigation={this.props.navigation}
      />
@@ -94,16 +100,15 @@ class HomeScreen extends React.Component {
       emergency = true;
     }
     let response = await this.props.ping(this.props.session.session_token, this.state.selectedFriendFbId, emergency);
-    this.setState({ isModalVisible: false, pingType: 'default'});
     this._onPingCompletion(response, pingType);
   };
 
   _onPingCompletion = async (response, pingType) => {
     if (!response.friend.status) {
-    Alert.alert('Ping Failed', 'The user you tried to ping is out of range.', [{text: 'OK', onPress: ()=>{this.setState({ isModalVisible: false})}}])
+    Alert.alert('Ping Failed', 'The user you tried to ping is out of range.', [{text: 'OK', onPress: ()=>{this.setState({ isModalVisible: false, selectedFriendFbId: null, selectedFriendName: null, pingType: 'default' })}}])
   } else {
       //gotta send them a ping!
-      this.setState({ isModalVisible: false});
+      this.setState({ isModalVisible: false, selectedFriendFbId: null, selectedFriendName: null, pingType: 'default' });
       myLoc = await Expo.Location.getCurrentPositionAsync();
 
       let message = `${this.props.session.current_user.name}` + pingMessages[pingType];
@@ -143,7 +148,7 @@ class HomeScreen extends React.Component {
           renderItem={this._renderItem} />
         <Modal isVisible={this.state.isModalVisible} style={styles.bottomModal}>
           <View style={styles.modalContent}>
-            <Text>Ping your friend!</Text>
+            <Text>Ping {this.state.selectedFriendName}</Text>
 
               <TouchableHighlight
                onPress={()=> this._togglePingType(this.props.currentUser.custom_ping_icons[0])}
@@ -177,7 +182,7 @@ class HomeScreen extends React.Component {
                 <Text>Ping</Text>
               </View>
             </TouchableOpacity>
-            {this._renderButton('Close', () => this.setState({ isModalVisible: false, selectedFriendFbId: null }))}
+            {this._renderButton('Close', () => this.setState({ isModalVisible: false, selectedFriendFbId: null, selectedFriendName: null, pingType: 'default' }))}
           </View>
         </Modal>
       </View>
