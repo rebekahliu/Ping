@@ -146,14 +146,10 @@ class ProfileSettings extends React.Component {
                style={{width: 25, height: 25}}
                source={customIcon3}
              />
-
-
-
       </View>
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {

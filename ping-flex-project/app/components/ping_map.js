@@ -37,7 +37,6 @@ class PingMap extends React.Component {
     let my_lng = this.props.navigation.state.params.myLoc.coords.longitude;
     let friend_lat = parseFloat(this.props.pinged_friend.friend.location.lat);
     let friend_lng = parseFloat(this.props.pinged_friend.friend.location.lng);
-
     return (
       <View style={styles.container}>
         <MapView
@@ -45,10 +44,10 @@ class PingMap extends React.Component {
         ref={ref => { this.map = ref; }}
           style={styles.map}
         initialRegion={{
-          latitude: my_lat,
-          longitude: my_lng,
-          latitudeDelta: Math.abs(my_lat-friend_lat)/2 * 1.5,
-          longitudeDelta: Math.abs(my_lng-friend_lng)/2 * 1.5,
+          latitude: (my_lat + friend_lat)/2,
+          longitude: (my_lng + friend_lng)/2,
+          latitudeDelta: Math.abs(my_lat - friend_lat) * 2,
+          longitudeDelta: Math.abs(my_lng - friend_lng) * 2,
         }}
         >
 

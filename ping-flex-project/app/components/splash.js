@@ -9,7 +9,6 @@ import {
   StackNavigator,
 } from 'react-navigation';
 
-
 import {
   Text,
   View,
@@ -24,7 +23,6 @@ import * as SessionActions from '../actions/session_actions';
 const DB = {
     'fbToken': Store.model('fbToken'),
 }
-
 
 class Splash extends React.Component {
   constructor(props) {
