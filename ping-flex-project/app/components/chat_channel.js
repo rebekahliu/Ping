@@ -1,5 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  FlatList,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard
+} from 'react-native';
+import { GiftedChat } from 'react-native-gifted-chat';
 import {connect} from 'react-redux';
 
 import {fetchMessages} from '../actions/message_actions';
@@ -14,8 +24,7 @@ class ChatChannel extends React.Component {
     };
 
     this.updateMessages = this.updateMessages.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.messages = this.messages.bind(this);
+    // this.messages = this.messages.bind(this);
   }
 
   static contextTypes = {
@@ -39,8 +48,14 @@ class ChatChannel extends React.Component {
   updateMessages(data) {
     this.setState({
       messages: this.state.messages.concat([{
-        content: data.content,
-        user: data.user
+        _id: data._id,
+        text: data.text,
+        createdAt: data.createdAt,
+        user: {
+          _id: data.user._id,
+          name: data.user.name,
+          avatar: data.user.avatar,
+        }
       }])
     })
   }
@@ -49,7 +64,6 @@ class ChatChannel extends React.Component {
     this.subscription = this.context.cable.subscriptions.create(
       { channel: "ChatChannel", chatroom_id: this.props.chatroomId }, {
         received: function(data) {
-          debugger;
           this.updateMessages(data);
         },
         updateMessages: this.updateMessages
@@ -61,45 +75,41 @@ class ChatChannel extends React.Component {
           this.context.cable.subscriptions.remove(this.subscription)
   }
 
-  messages() {
-    return this.state.messages.map((message, idx) => (
-      <Text key={`${idx}`}>{message.user}: {message.content}</Text>
-    ))
+  onSend(message) {
+    this.props.createMessage(message.text, this.props.chatroomId, this.props.token)
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    this.props.createMessage(e.nativeEvent.text, this.props.chatroomId, this.props.token)
-    this.setState({text: ""})
+  compare(a, b) {
+    let comparison = 0;
+    let ida = a._id
+    let idb = b._id
+
+    if (ida > idb) {
+      comparison = 1;
+    } else if (idb > ida) {
+      comparison = -1;
+    }
+
+    return comparison;
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        {this.messages()}
-        <TextInput
-        style={{height: 40, width: 100, borderColor: 'gray', borderWidth: 1}}
-        onChangeText={(text) => this.setState({text})}
-        value={this.state.text}
-        onSubmitEditing={this.handleSubmit}
-        />
-      </View>
+      <GiftedChat
+       messages={this.state.messages.sort(this.compare).reverse()}
+       onSend={(messages) => this.onSend(messages[0])}
+
+       user={{_id: this.props.userId}}
+     />
     );
   }
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
 var mapStateToProps = (state) => {
   return {
     messages: state.messages,
-    token: state.session.session_token
+    token: state.session.session_token,
+    userId: state.session.current_user.id
   };
 }
 
