@@ -6,7 +6,6 @@ const SessionReducer = (state = initialState, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_FRIENDS:
-      // console.log(action.friends);
       return {
         friends: action.friends.friends,
         fbFriends: action.friends.fb_friends,
