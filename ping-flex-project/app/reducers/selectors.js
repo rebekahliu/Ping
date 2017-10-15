@@ -1,12 +1,12 @@
 export const allFriends = (state) => {
   const friends = state.friends.friends;
   if (friends) {
-    return Object.keys(friends).map(id=>{
+    return sort(Object.keys(friends).map(id=>{
       let friend = friends[id];
 
       friend.key = id;
       return friend;
-    });
+    }));
   } else {
     return [];
   }
@@ -29,19 +29,7 @@ export const suggestedFriends = (state) => {
     });
   }
 
-  suggestions.sort(function(a, b) {
-    let nameA = a.name.toUpperCase();
-    let nameB = b.name.toUpperCase();
-    if (nameA < nameB) {
-      return -1;
-    } else if (nameA > nameB) {
-      return 1;
-    } else {
-      return 0;
-    }
-  });
-
-  return suggestions;
+  return sort(suggestions);
 };
 
 export const friendRequests = (state) => {
@@ -53,5 +41,19 @@ export const friendRequests = (state) => {
       requests.push(pendingFriends[id]);
     });
   }
-  return requests;
+  return sort(requests);
+};
+
+const sort = function(friends) {
+  return friends.sort(function(a, b) {
+    let nameA = a.name.toUpperCase();
+    let nameB = b.name.toUpperCase();
+    if (nameA < nameB) {
+      return -1;
+    } else if (nameA > nameB) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
 };
