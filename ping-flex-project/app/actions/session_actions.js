@@ -47,11 +47,9 @@ export const login = (fbId, token) => (dispatch) => {
   return (
     SessionAPI.login(fbId, token).then(
       (currentUser) => {
-        debugger 
         return dispatch(receiveCurrentUser(currentUser, token));
       },
       (errs) => {
-        debugger
         return dispatch(receiveErrors(errs));
       }
     )
