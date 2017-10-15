@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { requestFriend } from '../actions/friend_actions';
+import { requestFriend, getFriends } from '../actions/friend_actions';
 import { suggestedFriends } from '../reducers/selectors';
 import {
   Text,
@@ -17,6 +17,14 @@ class SuggestedFriends extends React.Component {
     super(props);
   }
 
+  componentWillMount() {
+    this.props.getFriends(this.props.token);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.friends);
+  }
+
   _renderFriends({item}) {
     return (
       <AddFriendItem friend={item}
@@ -25,10 +33,19 @@ class SuggestedFriends extends React.Component {
     );
   }
 
+  _noFriends() {
+    if (!this.props.friends.length) {
+      return (
+        <Text style={styles.noFriends}>No Friends Found</Text>
+      );
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>{ (this.props.friends.length ? "" : "No friends found")}</Text>
+        <Text style={styles.addFriend}>Add Friends</Text>
+        {this._noFriends()}
         <FlatList style={{flex: 1}} contentContainerStyle={styles.friendList}
           data={this.props.friends}
           renderItem={this._renderFriends.bind(this)}
@@ -44,7 +61,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  requestFriend: (token, friendId) => dispatch(requestFriend(token, friendId))
+  requestFriend: (token, friendId) => dispatch(requestFriend(token, friendId)),
+  getFriends: (token) => dispatch(getFriends(token))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SuggestedFriends);
@@ -53,10 +71,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  addFriend: {
+    alignSelf: 'stretch',
+    borderBottomWidth: 1,
+    borderColor: 'grey',
+    fontSize: 22,
+    fontWeight: 'bold',
+    padding: 7
+  },
   friendList: {
-    backgroundColor: 'blue',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    flex: 1,
     alignSelf: 'stretch',
   },
+  noFriends: {
+    fontSize: 14,
+    alignSelf: 'stretch',
+    textAlign: 'center',
+    padding: 10
+  }
 });
