@@ -17,6 +17,12 @@ class AddedMe extends React.Component {
     super(props);
   }
 
+  static navigationOptions() {
+    return {
+      title: 'Pending Requests',
+    };
+  };
+
   componentWillMount() {
     this.props.getFriends(this.props.token);
   }
@@ -40,7 +46,6 @@ class AddedMe extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.addedMe}>Added Me</Text>
         {this._noFriends()}
         <FlatList style={{flex: 1}} contentContainerStyle={styles.friendList}
           data={this.props.friends}

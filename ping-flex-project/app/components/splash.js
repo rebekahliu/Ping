@@ -6,7 +6,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import {
-  StackNavigator,
+  StackNavigator
 } from 'react-navigation';
 
 import {
@@ -31,6 +31,12 @@ class Splash extends React.Component {
   constructor(props) {
     super(props)
   }
+
+  static navigationOptions() {
+    return {
+      header: null
+    };
+  };
 
   componentWillMount() {
     this._notificationSubscription = Notifications.addListener(this._handleNotification);
@@ -62,7 +68,6 @@ class Splash extends React.Component {
       let fbId = resp[resp.length - 1].fbId
       let token = resp[resp.length - 1].token
       await this.props.login(fbId, token);
-      debugger;
       this.props.navigation.navigate('HomeScreen');
     }
   }
