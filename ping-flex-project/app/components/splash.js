@@ -32,6 +32,12 @@ class Splash extends React.Component {
     super(props)
   }
 
+  static navigationOptions() {
+    return {
+      header: null
+    };
+  };
+
   componentWillMount() {
     this._notificationSubscription = Notifications.addListener(this._handleNotification);
   }
