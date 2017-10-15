@@ -8,6 +8,15 @@ import {
 } from 'react-native';
 
 class AddFriendItem extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      button: this.buttonTitle(),
+      disabled: this.disableButton()
+    };
+  }
+
   disableButton() {
     const friend = this.props.friend;
     if (friend.require_approval === false) {
@@ -30,16 +39,25 @@ class AddFriendItem extends React.Component {
 
   _addFriend (friendId) {
     this.props.action(this.props.token, friendId);
+    if (!this.props.friend.require_approval) {
+      this.setState({ button: 'Pending' });
+    }
+    this.setState({ disabled: true });
   }
 
   render() {
+    const friend = this.props.friend;
     return (
       <View style={styles.friend}>
-        <Text>{this.props.friend.name}</Text>
+        <View style={styles.info}>
+          <Image source={{uri: friend.pro_pic_url}}
+            style={styles.friendPic} />
+          <Text style={styles.name}>{friend.name}</Text>
+        </View>
         <Button
-          onPress={()=>this._addFriend(this.props.friend.id)}
-          title={this.buttonTitle()}
-          disabled={this.disableButton()}/>
+          onPress={()=>this._addFriend(friend.id)}
+          title={this.state.button}
+          disabled={this.state.disabled}/>
       </View>
     );
   }
@@ -49,9 +67,23 @@ export default AddFriendItem;
 
 const styles = StyleSheet.create({
   friend: {
-    // flex: 1,
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'purple'
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  info: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  name: {
+    paddingHorizontal: 10,
+    fontSize: 18
+  },
+  friendPic: {
+    width: 45,
+    height: 45,
+    borderRadius: 45/2
   }
 });

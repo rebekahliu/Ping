@@ -13,8 +13,8 @@ export const allFriends = (state) => {
 };
 
 export const suggestedFriends = (state) => {
-  const fbFriends = state.friends.fb_friends;
-  const pendingFriends = state.friends.pending_friends;
+  const fbFriends = state.friends.fbFriends;
+  const pendingFriends = state.friends.pendingFriends;
   let suggestions = [];
   if (fbFriends) {
     Object.keys(fbFriends).forEach( id => {
@@ -45,7 +45,7 @@ export const suggestedFriends = (state) => {
 };
 
 export const friendRequests = (state) => {
-  const pendingFriends = state.friends.pending_friends;
+  const pendingFriends = state.friends.pendingFriends;
   let requests = [];
   if (pendingFriends) {
     Object.keys(pendingFriends).forEach( id => {
