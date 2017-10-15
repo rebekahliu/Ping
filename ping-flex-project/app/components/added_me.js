@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { approveFriend } from '../actions/friend_actions';
+import { approveFriend, getFriends } from '../actions/friend_actions';
 import { friendRequests } from '../reducers/selectors';
 import {
   Text,
@@ -17,6 +17,10 @@ class AddedMe extends React.Component {
     super(props);
   }
 
+  componentWillMount() {
+    this.props.getFriends(this.props.token);
+  }
+
   _renderFriends({item}) {
     return (
       <AddFriendItem friend={item}
@@ -25,10 +29,19 @@ class AddedMe extends React.Component {
     );
   }
 
+  _noFriends() {
+    if (!this.props.friends.length) {
+      return (
+        <Text style={styles.noFriends}>No Requests</Text>
+      );
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>{ (this.props.friends.length ? "" : "No requests")}</Text>
+        <Text style={styles.addedMe}>Added Me</Text>
+        {this._noFriends()}
         <FlatList style={{flex: 1}} contentContainerStyle={styles.friendList}
           data={this.props.friends}
           renderItem={this._renderFriends.bind(this)}
@@ -44,7 +57,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  approveFriend: (token, friendId) => dispatch(approveFriend(token, friendId))
+  approveFriend: (token, friendId) => dispatch(approveFriend(token, friendId)),
+  getFriends: (token) => dispatch(getFriends(token))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddedMe);
@@ -53,10 +67,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  addedMe: {
+    alignSelf: 'stretch',
+    borderBottomWidth: 1,
+    borderColor: 'grey',
+    fontSize: 22,
+    fontWeight: 'bold',
+    padding: 7
+  },
   friendList: {
-    backgroundColor: 'blue',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    flex: 1,
     alignSelf: 'stretch',
   },
+  noFriends: {
+    fontSize: 14,
+    alignSelf: 'stretch',
+    textAlign: 'center',
+    padding: 10
+  }
 });

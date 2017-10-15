@@ -16,15 +16,15 @@ import ProfileSettings from './app/components/profile_settings';
 import configureStore from './app/store/store';
 
 const AppNav = StackNavigator({
-    Splash: { screen: Splash},
-    Login: { screen: Login },
-    HomeScreen: { screen: HomeScreen },
-    PingMap: { screen: PingMap},
-    SuggestedFriends: { screen: SuggestedFriends },
-    AddedMe: { screen: AddedMe },
-    Profile: { screen: Profile },
-    ProfileSettings: { screen: ProfileSettings},
-    MessageTest: { screen: MessageTest },
+  Splash: { screen: Splash},
+  Login: { screen: Login },
+  HomeScreen: { screen: HomeScreen },
+  PingMap: { screen: PingMap},
+  SuggestedFriends: { screen: SuggestedFriends },
+  AddedMe: { screen: AddedMe },
+  Profile: { screen: Profile },
+  ProfileSettings: { screen: ProfileSettings},
+  MessageTest: { screen: MessageTest },
 });
 
 class App extends Component {

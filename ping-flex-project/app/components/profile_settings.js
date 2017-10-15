@@ -111,6 +111,7 @@ class ProfileSettings extends React.Component {
         <Text style={styles.description}>If friends are outside your visibility radius, they won't be able to ping you</Text>
         <View style={styles.showMe}>
           <Text>Show me on Ping </Text>
+
           <Switch
             style={styles.switch}
             value={this.state.findable}

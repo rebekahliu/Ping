@@ -74,7 +74,7 @@ class HomeScreen extends React.Component {
   _renderButton = (text, onPress) => (
    <TouchableOpacity onPress={onPress}>
      <View style={styles.button}>
-       <Text>{text}</Text>
+       <Text style={{fontSize: 16}}>{text}</Text>
      </View>
    </TouchableOpacity>
  );
@@ -137,8 +137,6 @@ class HomeScreen extends React.Component {
 
 
   render() {
-    console.log(this.props.friends);
-
     const customIcon1 = icons[this.props.currentUser.custom_ping_icons[0]];
     const customIcon2 = icons[this.props.currentUser.custom_ping_icons[1]];
     const customIcon3 = icons[this.props.currentUser.custom_ping_icons[2]];
@@ -146,47 +144,50 @@ class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Button style={styles.navigate} onPress={this._profile} title="Profile"/>
+        <Text style={styles.friendHeader}>Friends</Text>
         <FlatList style={styles.friendList}
           data={this.props.friends}
           extraData={this.state}
           renderItem={this._renderItem} />
         <Modal isVisible={this.state.isModalVisible} style={styles.bottomModal}>
           <View style={styles.modalContent}>
-            <Text>Ping {this.state.selectedFriendName}</Text>
-
+            <Text style={{fontSize: 20, paddingBottom: 5}}>
+              Ping {this.state.selectedFriendName}
+            </Text>
+            <View style={styles.radioButtons}>
               <TouchableHighlight
-               onPress={()=> this._togglePingType(this.props.currentUser.custom_ping_icons[0])}
-               style={[styles.pingRadio, this.state.pingType == this.props.currentUser.custom_ping_icons[0] && styles.pingRadioSelected]}>
+                onPress={()=> this._togglePingType(this.props.currentUser.custom_ping_icons[0])}
+                style={[styles.pingRadio, this.state.pingType == this.props.currentUser.custom_ping_icons[0] && styles.pingRadioSelected]}>
                <Image
                   style={{width: 25, height: 25}}
-                  source={customIcon1}
-                />
-             </TouchableHighlight>
+                  source={customIcon1} />
+              </TouchableHighlight>
 
               <TouchableHighlight
-               onPress={()=> this._togglePingType(this.props.currentUser.custom_ping_icons[1])}
-               style={[styles.pingRadio, this.state.pingType == this.props.currentUser.custom_ping_icons[1] && styles.pingRadioSelected]}>
+                onPress={()=> this._togglePingType(this.props.currentUser.custom_ping_icons[1])}
+                style={[styles.pingRadio, this.state.pingType == this.props.currentUser.custom_ping_icons[1] && styles.pingRadioSelected]}>
                <Image
                   style={{width: 25, height: 25}}
-                  source={customIcon2}
-                />
-             </TouchableHighlight>
+                  source={customIcon2} />
+              </TouchableHighlight>
 
               <TouchableHighlight
-               onPress={()=> this._togglePingType(this.props.currentUser.custom_ping_icons[2])}
-               style={[styles.pingRadio, this.state.pingType == this.props.currentUser.custom_ping_icons[2] && styles.pingRadioSelected]}>
-               <Image
+                onPress={()=> this._togglePingType(this.props.currentUser.custom_ping_icons[2])}
+                style={[styles.pingRadio, this.state.pingType == this.props.currentUser.custom_ping_icons[2] && styles.pingRadioSelected]}>
+                <Image
                   style={{width: 25, height: 25}}
-                  source={customIcon3}
-                />
-             </TouchableHighlight>
+                  source={customIcon3} />
+              </TouchableHighlight>
+            </View>
 
-            <TouchableOpacity onPress={()=>this._pingFriend(this.state.pingType)}>
-              <View style={styles.button}>
-                <Text>Ping</Text>
-              </View>
-            </TouchableOpacity>
-            {this._renderButton('Close', () => this.setState({ isModalVisible: false, selectedFriendFbId: null, selectedFriendName: null, pingType: 'default' }))}
+            <View style={styles.actionButtons}>
+              {this._renderButton('Close', () => this.setState({ isModalVisible: false, selectedFriendFbId: null, selectedFriendName: null, pingType: 'default' }))}
+              <TouchableOpacity onPress={()=>this._pingFriend(this.state.pingType)}>
+                <View style={styles.button}>
+                  <Text style={{fontSize: 16}}>Ping</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
         </Modal>
       </View>
@@ -202,8 +203,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 20,
   },
+  friendHeader: {
+    alignSelf: 'stretch',
+    borderBottomWidth: 1,
+    borderColor: 'grey',
+    fontSize: 22,
+    fontWeight: 'bold',
+    padding: 7
+  },
   friendList: {
-    backgroundColor: 'blue',
     alignSelf: 'stretch',
     flex: 1,
   },
@@ -228,8 +236,9 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'lightblue',
-    padding: 12,
-    margin: 16,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    margin: 10,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,
@@ -238,11 +247,24 @@ const styles = StyleSheet.create({
   navigate: {
     margin: 15,
   },
+  radioButtons: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
   pingRadio: {
+    padding: 5,
+    margin: 5,
     backgroundColor: 'white',
+    borderRadius: 3,
+    borderColor: 'white'
   },
   pingRadioSelected: {
     backgroundColor: 'lightblue',
+    borderColor: 'rgba(0, 0, 0, 0.1)'
+  },
+  actionButtons: {
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 });
 
