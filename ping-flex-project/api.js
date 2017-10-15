@@ -28,7 +28,7 @@ export default class API {
     }
   }
 
-  static async sendPushNotificationAsync(friend_facebook_id, message) {
+  static async sendPushNotificationAsync(friend_facebook_id, data) {
     // Send the push notification!
     return fetch(SEND_PUSH_ENDPOINT, {
       method: 'POST',
@@ -37,9 +37,8 @@ export default class API {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        token: "testing",
         friend_facebook_id: friend_facebook_id,
-        message: message,
+        data,
       }),
     });
   }
