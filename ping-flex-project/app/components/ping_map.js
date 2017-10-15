@@ -28,7 +28,7 @@ class PingMap extends React.Component {
 
 
   static navigationOptions({navigation}) {
-    let chatroomId = navigation.state.params.pingedFriend.chatroom_id
+    let chatroomId = navigation.state.params.pingedFriend.friend.chatroom_id
     return {
       title: `${navigation.state.params.pingedFriend.friend.name}`,
       headerRight: <Button
