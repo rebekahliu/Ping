@@ -1,6 +1,25 @@
-const API_URL = 'https://gentle-anchorage-13426.herokuapp.com/api/';
+// const API_URL = 'https://gentle-anchorage-13426.herokuapp.com/api/';
+const API_URL = 'http://192.168.2.144:3000/api/';
 
-export default class AddFriendAPI {
+export default class FriendAPI {
+
+  static async getFriends(session_token) {
+    try {
+      let response = await fetch(API_URL + 'friends', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          session_token: session_token
+        })
+      });
+      return response.json();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   static async requestFriend(session_token, friend_id) {
     try {
