@@ -112,9 +112,13 @@ class HomeScreen extends React.Component {
 
       let message = `${this.props.session.current_user.name}` + pingMessages[pingType];
 
-      API.sendPushNotificationAsync(response.friend.friend.facebook_id, message);
+      let {pro_pic_url, name} = this.props.currentUser
+
+      let pingSendData = {message, pingedFriend: {friend: {location: {lat: myLoc.coords.latitude, lng: myLoc.coords.longitude}, pro_pic_url, name, chatroom_id: response.friend.chatroom_id} }}
+
+      API.sendPushNotificationAsync(response.friend.friend.facebook_id, pingSendData);
       //go to mapView
-      this.props.navigation.navigate('PingMap', {myLoc});
+      this.props.navigation.navigate('PingMap', {myLoc, pingedFriend: response.friend});
     }
 
   };
