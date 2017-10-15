@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   Image,
+  BackHandler,
 } from 'react-native';
 
 import {icons} from '../../assets/icons';
@@ -53,6 +54,9 @@ class HomeScreen extends React.Component {
     this._startWatch();
     this.props.getFriends(this.props.session.session_token);
     API.registerForPushNotificationsAsync(this.props.session.session_token);
+    BackHandler.addEventListener('hardwareBackPress', () => {
+     return true;
+    });
   }
 
   _startWatch = async () => {
