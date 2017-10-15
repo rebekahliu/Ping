@@ -43,9 +43,11 @@ class HomeScreen extends React.Component {
     pingType: 'default',
   };
 
-  static navigationOptions() {
+  static navigationOptions({navigation}) {
     return {
-      header: null
+      title: 'Home',
+      headerRight: <Button onPress={()=>{navigation.navigate('Profile')}} title="Profile"/>,
+      headerLeft: null,
     };
   };
 
@@ -127,10 +129,6 @@ class HomeScreen extends React.Component {
 
   };
 
-  _profile = () => {
-    this.props.navigation.navigate('Profile');
-  }
-
   _togglePingType = (pingType) => {
     if (this.state.pingType == pingType) {
       this.setState({pingType: 'default'})
@@ -147,8 +145,6 @@ class HomeScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Button style={styles.navigate} onPress={this._profile} title="Profile"/>
-        <Text style={styles.friendHeader}>Friends</Text>
         <FlatList style={styles.friendList}
           data={this.props.friends}
           extraData={this.state}
