@@ -1,5 +1,5 @@
 export const allFriends = (state) => {
-  const friends = state.session.current_user.friends;
+  const friends = state.friends.friends;
   if (friends) {
     return Object.keys(friends).map(id=>{
       let friend = friends[id];
@@ -13,8 +13,8 @@ export const allFriends = (state) => {
 };
 
 export const suggestedFriends = (state) => {
-  const fbFriends = state.session.current_user.fb_friends;
-  const pendingFriends = state.session.current_user.pending_friends;
+  const fbFriends = state.friends.fb_friends;
+  const pendingFriends = state.friends.pending_friends;
   let suggestions = [];
   if (fbFriends) {
     Object.keys(fbFriends).forEach( id => {
@@ -45,7 +45,7 @@ export const suggestedFriends = (state) => {
 };
 
 export const friendRequests = (state) => {
-  const pendingFriends = state.session.current_user.pending_friends;
+  const pendingFriends = state.friends.pending_friends;
   let requests = [];
   if (pendingFriends) {
     Object.keys(pendingFriends).forEach( id => {

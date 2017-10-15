@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { requestFriend } from '../actions/add_friend_actions';
+import { requestFriend } from '../actions/friend_actions';
 import { suggestedFriends } from '../reducers/selectors';
 import {
   Text,

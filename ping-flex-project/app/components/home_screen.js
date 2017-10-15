@@ -27,11 +27,11 @@ import {
 
 import {Location, Permissions} from 'expo';
 
-import {allFriends} from '../reducers/selectors.js';
+import { allFriends } from '../reducers/selectors.js';
+import { getFriends } from '../actions/friend_actions';
+import FriendIndexItem from './friend_index_item';
 
 import * as PingActions from '../actions/ping_actions';
-
-import FriendIndexItem from './friend_index_item';
 
 class HomeScreen extends React.Component {
 
@@ -51,6 +51,7 @@ class HomeScreen extends React.Component {
 
   componentWillMount() {
     this._startWatch();
+    this.props.getFriends(this.props.session.session_token);
     API.registerForPushNotificationsAsync(this.props.session.session_token);
   }
 
@@ -136,6 +137,7 @@ class HomeScreen extends React.Component {
 
 
   render() {
+    console.log(this.props.friends);
 
     const customIcon1 = icons[this.props.currentUser.custom_ping_icons[0]];
     const customIcon2 = icons[this.props.currentUser.custom_ping_icons[1]];
@@ -268,7 +270,8 @@ var mapStateToProps = (state) => {
 
 var mapDispatchToProps = (dispatch) => {
   return {
-    ping: (token, fbId, emergency) => dispatch(PingActions.pingFriend(token, fbId, emergency))
+    ping: (token, fbId, emergency) => dispatch(PingActions.pingFriend(token, fbId, emergency)),
+    getFriends: (token) => dispatch(getFriends(token))
   };
 }
 
