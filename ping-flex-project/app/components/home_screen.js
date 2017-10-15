@@ -181,12 +181,12 @@ class HomeScreen extends React.Component {
             </View>
 
             <View style={styles.actionButtons}>
+              {this._renderButton('Close', () => this.setState({ isModalVisible: false, selectedFriendFbId: null, selectedFriendName: null, pingType: 'default' }))}
               <TouchableOpacity onPress={()=>this._pingFriend(this.state.pingType)}>
                 <View style={styles.button}>
                   <Text style={{fontSize: 16}}>Ping</Text>
                 </View>
               </TouchableOpacity>
-              {this._renderButton('Close', () => this.setState({ isModalVisible: false, selectedFriendFbId: null, selectedFriendName: null, pingType: 'default' }))}
             </View>
           </View>
         </Modal>
