@@ -42,14 +42,13 @@ class Profile extends React.Component {
       <View style={styles.container}>
       <Image source={{uri: pro_pic_url}}
        style={styles.proPic} />
-      <Text>{name}</Text>
+     <Text style={styles.name}>{name}</Text>
       <Button style={styles.button} onPress={this._suggestedFriends} title="Add Friends"/>
       <Button style={styles.button} onPress={this._addedMe} title="Pending Requests"/>
       </View>
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -62,6 +61,11 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 100/2,
   },
+  name: {
+    fontSize: 20,
+    paddingTop: 20,
+    paddingBottom: 50,
+  }
 });
 
 var mapStateToProps = (state) => {
