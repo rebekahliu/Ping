@@ -1,5 +1,4 @@
-// const API_URL = 'https://gentle-anchorage-13426.herokuapp.com/api/';
-const API_URL = 'http://192.168.2.144:3000/api/';
+const API_URL = 'https://gentle-anchorage-13426.herokuapp.com/api/';
 
 export default class LocationAPI {
 
