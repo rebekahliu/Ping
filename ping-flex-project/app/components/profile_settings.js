@@ -77,7 +77,6 @@ class ProfileSettings extends React.Component {
           step={1}
           value={this.state.visibleRadius}
           onValueChange={(value) => this.setState({visibleRadius: value})}
-
           />
           <Text>
             visible Radius {this.state.visibleRadius}mi.

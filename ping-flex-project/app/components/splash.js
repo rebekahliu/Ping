@@ -62,22 +62,35 @@ class Splash extends React.Component {
       let fbId = resp[resp.length - 1].fbId
       let token = resp[resp.length - 1].token
       await this.props.login(fbId, token);
+      debugger;
       this.props.navigation.navigate('HomeScreen');
     }
   }
 
   render() {
     return (
-      <Text>Splash page!</Text>
-    )
+      <View style={styles.container}>
+        <Image
+          source={require('../../assets/images/splashpage.png')}
+          />
+      </View>
+    );
   }
-
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ff9a8d',
+  },
+});
 
 var mapDispatchToProps = (dispatch) => {
   return {
     login: (fbId, token) => dispatch(SessionActions.login(fbId, token))
-  }
-}
+  };
+};
 
 export default connect(null, mapDispatchToProps)(Splash);
