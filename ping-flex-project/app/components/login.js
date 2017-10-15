@@ -36,16 +36,6 @@ class Login extends React.Component {
     };
   };
 
-  componentWillMount() {
-    this._notificationSubscription = Notifications.addListener(this._handleNotification);
-  }
-
-  _handleNotification = (notification) => {
-    if(notification.data.message != "Welcome back!") {
-      //should change this to a nice message-like thing that slides in at top and disappears after a bit
-      Alert.alert('Incoming Ping',notification.data.message);
-    }
-  }
 
   _setToken = (token, fbId) => {
     DB.fbToken.add({

@@ -14,7 +14,10 @@ import {
   View,
   StyleSheet,
   Image,
+  Alert,
 } from 'react-native';
+
+import { Notifications } from 'expo';
 
 import Store from 'react-native-store';
 import * as SessionActions from '../actions/session_actions';
@@ -29,9 +32,31 @@ class Splash extends React.Component {
     super(props)
   }
 
+  componentWillMount() {
+    this._notificationSubscription = Notifications.addListener(this._handleNotification);
+  }
+
+  _handleNotification = async (notification) => {
+    viewMap = async () => {
+      let myLoc = await Expo.Location.getCurrentPositionAsync();
+
+      this.props.navigation.navigate('PingMap', {myLoc, pingedFriend: notification.data.pingedFriend});
+    };
+
+    if(notification.data.message != "Welcome back!") {
+      Alert.alert('Incoming Ping',notification.data.message,
+        [
+        {text: 'View on Map', onPress: viewMap},
+        {text: 'Dismiss', style: 'cancel'},
+        ],
+      );
+    }
+  }
+
   async componentDidMount() {
     const resp = await Store.model('fbToken').find();
-    if(resp[resp.length - 1] < 2) {
+    if(!resp || Object.keys(resp[resp.length-1])
+ < 4) {
       this.props.navigation.navigate('Login');
     } else {
       let fbId = resp[resp.length - 1].fbId
