@@ -12,6 +12,7 @@ import {
 import {
   Text,
   View,
+  Platform,
   StyleSheet,
   Image,
   Alert,
@@ -37,27 +38,6 @@ class Splash extends React.Component {
       header: null
     };
   };
-
-  componentWillMount() {
-    this._notificationSubscription = Notifications.addListener(this._handleNotification);
-  }
-
-  _handleNotification = async (notification) => {
-    viewMap = async () => {
-      let myLoc = await Expo.Location.getCurrentPositionAsync();
-
-      this.props.navigation.navigate('PingMap', {myLoc, pingedFriend: notification.data.pingedFriend});
-    };
-
-    if(notification.data.message != "Welcome back!") {
-      Alert.alert('Incoming Ping',notification.data.message,
-        [
-        {text: 'View on Map', onPress: viewMap},
-        {text: 'Dismiss', style: 'cancel'},
-        ],
-      );
-    }
-  }
 
   async componentDidMount() {
     const timeout = setTimeout( async function() {

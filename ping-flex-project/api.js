@@ -8,6 +8,24 @@ const SEND_PUSH_ENDPOINT = 'https://gentle-anchorage-13426.herokuapp.com/api/sen
 
 export default class API {
 
+  static async getOwnLocation(session_token) {
+    try {
+      let response = await fetch(API_URL + 'get_own_location', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          session_token: session_token,
+        })
+      });
+      return response.json();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   static async updateSettings(session_token, settings) {
     // Send the push notification!
     try {

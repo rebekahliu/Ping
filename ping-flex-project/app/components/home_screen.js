@@ -27,7 +27,7 @@ import {
   StackNavigator,
 } from 'react-navigation';
 
-import {Location, Permissions} from 'expo';
+import {Notifications, Location, Permissions} from 'expo';
 
 import { allFriends } from '../reducers/selectors.js';
 import { getFriends } from '../actions/friend_actions';
@@ -53,9 +53,35 @@ class HomeScreen extends React.Component {
     };
   };
 
+  _handleNotification = async (notification) => {
+    viewMap = async () => {
+      let myLoc = {};
+      //if it's android, we cant get current position, so we'll grab from the database.
+      if(Platform.OS === 'android') {
+
+        respLoc = await API.getOwnLocation(this.props.session.session_token);
+        myLoc = {coords: {latitude: parseFloat(respLoc.lat),longitude: parseFloat(respLoc.lng)}};
+      } else {
+        myLoc = await Expo.Location.getCurrentPositionAsync();
+      }
+
+      this.props.navigation.navigate('PingMap', {myLoc, pingedFriend: notification.data.pingedFriend});
+    };
+
+    if(notification.data.message != "Welcome back!") {
+      Alert.alert('Incoming Ping',notification.data.message,
+        [
+        {text: 'View on Map', onPress: viewMap},
+        {text: 'Dismiss', style: 'cancel'},
+        ],
+      );
+    }
+  }
+
 
   componentWillMount() {
     this._startWatch();
+    this._notificationSubscription = Notifications.addListener(this._handleNotification);
     this.props.getFriends(this.props.session.session_token);
     API.registerForPushNotificationsAsync(this.props.session.session_token);
     BackHandler.addEventListener('hardwareBackPress', () => {
@@ -116,7 +142,16 @@ class HomeScreen extends React.Component {
   } else {
       //gotta send them a ping!
       this.setState({ isModalVisible: false, selectedFriendFbId: null, selectedFriendName: null, pingType: 'default' });
-      myLoc = await Expo.Location.getCurrentPositionAsync();
+
+      let myLoc = {};
+      //if it's android, we cant get current position, so we'll grab from the database.
+      if(Platform.OS === 'android') {
+
+        respLoc = await API.getOwnLocation(this.props.session.session_token);
+        myLoc = {coords: {latitude: parseFloat(respLoc.lat),longitude: parseFloat(respLoc.lng)}};
+      } else {
+        myLoc = await Expo.Location.getCurrentPositionAsync();
+      }
 
       let message = `${this.props.session.current_user.name}` + pingMessages[pingType];
 
