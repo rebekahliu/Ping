@@ -28,9 +28,10 @@ class FriendIndexItem extends React.Component {
             style={styles.friendPic} />
           <Text style={styles.name}>{friend.name}</Text>
         </View>
-        <Button
-          onPress={()=>this.openChat(friend.chatroom_id, friend.name)}
-          title='chat'/>
+        <TouchableOpacity style={styles.chatButton} onPress={()=>this.openChat(friend.chatroom_id, friend.name)}>
+          <Image source={require('../../assets/icons/chatIcon.png')}
+            style={styles.chatIcon} />
+        </TouchableOpacity>
       </TouchableOpacity>
     );
   }
@@ -58,5 +59,15 @@ const styles = StyleSheet.create({
     width: 45,
     height: 45,
     borderRadius: 45/2
-  }
+  },
+  chatButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 60,
+    height: 45,
+  },
+  chatIcon: {
+    width: 30,
+    height: 30,
+  },
 });
