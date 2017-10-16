@@ -126,7 +126,7 @@ class ProfileSettings extends React.Component {
               />
           </View>
 
-          <Text style={styles.description}>Turn off to go invisible. Friends will not be able to get your location. You will not be able to send pings.</Text>
+          <Text style={styles.description}>Turn off to go invisible. Note: On invisible mode you can still send pings</Text>
 
           <Text style={styles.header2}>CUSTOM PINGS</Text>
           <Text style={styles.description}>Customize your ping shortcuts to add a short message when you ping your friends.</Text>
