@@ -54,32 +54,27 @@ class Login extends React.Component {
   }
 
  _logIn = async () => {
-   let redirectUrl = AuthSession.getRedirectUrl();
-   console.log({ redirectUrl });
-   let result = await AuthSession.startAsync({
-     authUrl:
-       `https://www.facebook.com/v2.8/dialog/oauth?response_type=token` +
-       `&client_id=1751730575119352` +
-       `&redirect_uri=${encodeURIComponent(redirectUrl)}`,
-   });
 
-   if (result.type !== 'success') {
+   const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('1751730575119352', {
+       permissions: ['public_profile', 'email', 'user_friends'],
+     });
+
+   if (type !== 'success') {
       alert('Uh oh, something went wrong');
       return;
+    } else {
+      // Get the user's name using Facebook's Graph API
+      const response = await fetch(
+        `https://graph.facebook.com/me?access_token=${token}`);
+
+      const parsedResp = await response.json();
+      this._setToken(token, parsedResp.id);
+
+
+      //need to create an action that receives a current user?
+      await this.props.login(parsedResp.id, token);
+      this.props.navigation.navigate('HomeScreen');
     }
-
-  let token = result.params.access_token;
-
-  const response = await fetch(
-    `https://graph.facebook.com/me?access_token=${token}`);
-
-    const parsedResp = await response.json();
-    this._setToken(token, parsedResp.id);
-
-
-    //need to create an action that receives a current user?
-    await this.props.login(parsedResp.id, token);
-    this.props.navigation.navigate('HomeScreen');
   }
 }
 
