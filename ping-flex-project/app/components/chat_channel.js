@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {
+  Platform,
   StyleSheet,
   Text,
   View,
@@ -98,7 +99,6 @@ class ChatChannel extends React.Component {
       <GiftedChat
        messages={this.state.messages.sort(this.compare).reverse()}
        onSend={(messages) => this.onSend(messages[0])}
-
        user={{_id: this.props.userId}}
      />
     );

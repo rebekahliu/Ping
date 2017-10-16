@@ -46,8 +46,10 @@ class Profile extends React.Component {
       <Image source={{uri: pro_pic_url}}
        style={styles.proPic} />
      <Text style={styles.name}>{name}</Text>
-      <Button style={styles.button} onPress={this._suggestedFriends} title="Add Friends"/>
-      <Button style={styles.button} onPress={this._addedMe} title="Pending Requests"/>
+      <View style={(Platform.OS === 'ios') ? {} : {height: 80, justifyContent: 'space-between'}}>
+        <Button style={styles.button} onPress={this._suggestedFriends} title="Add Friends"/>
+        <Button style={styles.button} onPress={this._addedMe} title="Pending Requests"/>
+      </View>
       </View>
     );
   }
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingTop: 20,
     paddingBottom: 50,
-  }
+  },
 });
 
 var mapStateToProps = (state) => {
