@@ -73,6 +73,7 @@ class ProfileSettings extends React.Component {
       work: "Hey, are you at work?",
       drinks: "Hey, want to get drinks?",
       coffee: "Hey, want to grab coffee?",
+      gym: "Hey, want to go to the gym?",
     };
 
     const icons = {
@@ -83,6 +84,7 @@ class ProfileSettings extends React.Component {
       'drinks'    : require('../../assets/icons/drinksPing.png'),
       'school'    : require('../../assets/icons/schoolPing.png'),
       'coffee'    : require('../../assets/icons/coffeePing.png'),
+      'gym'    : require('../../assets/icons/gymPing.png'),
     }
 
     const name = this.props.currentUser.name;
@@ -136,6 +138,7 @@ class ProfileSettings extends React.Component {
               <Picker.Item label="Food" value="food" />
               <Picker.Item label="Drinks" value="drinks" />
               <Picker.Item label="Coffee" value="coffee" />
+              <Picker.Item label="Gym" value="gym" />
             </Picker>
             <Text>{pingMessages[this.state.customPing1]}</Text>
             <Image
@@ -156,6 +159,7 @@ class ProfileSettings extends React.Component {
               <Picker.Item label="Food" value="food" />
               <Picker.Item label="Drinks" value="drinks" />
               <Picker.Item label="Coffee" value="coffee" />
+              <Picker.Item label="Gym" value="gym" />
             </Picker>
               <Text>{pingMessages[this.state.customPing2]}</Text>
             <Image
@@ -176,6 +180,7 @@ class ProfileSettings extends React.Component {
               <Picker.Item label="Food" value="food" />
               <Picker.Item label="Drinks" value="drinks" />
               <Picker.Item label="Coffee" value="coffee" />
+              <Picker.Item label="Gym" value="gym" />
             </Picker>
               <Text>{pingMessages[this.state.customPing3]}</Text>
             <Image
