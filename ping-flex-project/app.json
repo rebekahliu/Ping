@@ -5,6 +5,9 @@
     "slug": "ping-flex-project",
     "privacy": "public",
     "sdkVersion": "21.0.0",
+    "android": {
+      "package": "com.ping_inc.ping"
+    },
     "version": "1.0.0",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
@@ -16,7 +19,8 @@
       "assetExts": ["ttf", "mp4"]
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ping_inc.ping",
     }
   }
 }

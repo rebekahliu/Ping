@@ -279,6 +279,7 @@ const pingMessages = {
   work: " pinged you: Hey, are you at work?",
   drinks: " pinged you: Hey, want to get drinks?",
   coffee: " pinged you: Hey, want to grab coffee?",
+  gym: " pinged you: Hey, want to go to the gym?",
 };
 
 var mapStateToProps = (state) => {

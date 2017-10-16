@@ -6,4 +6,5 @@ export const icons = {
   'drinks'    : require('./icons/drinksPing.png'),
   'school'    : require('./icons/schoolPing.png'),
   'coffee'    : require('./icons/coffeePing.png'),
+  'gym'       : require('./icons/gymPing.png'),
 }
