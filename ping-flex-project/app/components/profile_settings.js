@@ -79,7 +79,7 @@ class ProfileSettings extends React.Component {
           <Picker.Item label="Coffee" value="coffee" />
           <Picker.Item label="Gym" value="gym" />
         </Picker>
-        <Text>{pingMessages[this.state[ping]]}</Text>
+          <Text style={{flexWrap: 'wrap', width: 175}}>{pingMessages[this.state[ping]]}</Text>
         <Image
           style={{width: 25, height: 25}}
           source={icon} />
@@ -89,29 +89,7 @@ class ProfileSettings extends React.Component {
 
   render() {
 
-    const pingMessages = {
-      'default': "",
-      none: "",
-      home: "Hey, are you home?",
-      food: "Hey, want to get food?",
-      emergency: "Are you ok?",
-      school: "Hey, are you at school?",
-      work: "Hey, are you at work?",
-      drinks: "Hey, want to get drinks?",
-      coffee: "Hey, want to grab coffee?",
-      gym: "Hey, want to go to the gym?",
-    };
 
-    const icons = {
-      'home'  : require('../../assets/icons/homePing.png'),
-      'emergency'    : require('../../assets/icons/emergencyPing.png'),
-      'food'    : require('../../assets/icons/foodPing.png'),
-      'work'    : require('../../assets/icons/workPing.png'),
-      'drinks'    : require('../../assets/icons/drinksPing.png'),
-      'school'    : require('../../assets/icons/schoolPing.png'),
-      'coffee'    : require('../../assets/icons/coffeePing.png'),
-      'gym'    : require('../../assets/icons/gymPing.png'),
-    }
     const name = this.props.currentUser.name;
     const customIcon1 = icons[this.state.customPing1];
     const customIcon2 = icons[this.state.customPing2];
@@ -172,6 +150,7 @@ const pingMessages = {
   work: "Hey, are you at work?",
   drinks: "Hey, want to get drinks?",
   coffee: "Hey, want to grab coffee?",
+  gym: "Hey, want to workout?",
 };
 
 const icons = {
@@ -182,6 +161,7 @@ const icons = {
   'drinks'    : require('../../assets/icons/drinksPing.png'),
   'school'    : require('../../assets/icons/schoolPing.png'),
   'coffee'    : require('../../assets/icons/coffeePing.png'),
+  'gym'    : require('../../assets/icons/gymPing.png'),
 }
 
 const styles = StyleSheet.create({
