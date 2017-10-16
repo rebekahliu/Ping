@@ -8,6 +8,7 @@ import {
 import {
   Text,
   View,
+  Platform,
   StyleSheet,
   Button,
   Slider,
@@ -40,6 +41,7 @@ class ProfileSettings extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Settings',
+            headerStyle: (Platform.OS === 'ios') ? {} : {paddingLeft: 10, paddingRight:10, marginTop: 20},
       headerLeft: null,
       headerRight: <Button title="Done" onPress={() => {navigation.state.params.handleSave(navigation)}} />,
   };};

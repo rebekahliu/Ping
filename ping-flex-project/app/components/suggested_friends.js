@@ -20,6 +20,7 @@ class SuggestedFriends extends React.Component {
   static navigationOptions() {
     return {
       title: 'Suggested Friends',
+            headerStyle: (Platform.OS === 'ios') ? {} : {paddingLeft: 10, paddingRight:10, marginTop: 20},
     };
   };
 

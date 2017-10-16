@@ -9,10 +9,12 @@ import {
   Text,
   View,
   Image,
+  Platform,
   StyleSheet,
   FlatList,
   Button,
 } from 'react-native';
+
 
 class Profile extends React.Component {
   constructor(props) {
@@ -21,6 +23,7 @@ class Profile extends React.Component {
 
 
   static navigationOptions = ({ navigation }) => ({
+      headerStyle: (Platform.OS === 'ios') ? {} : {paddingLeft: 10, paddingRight:10, marginTop: 20},
       title: 'Profile',
       headerRight: <Button title="Settings" onPress={()=>navigation.navigate('ProfileSettings')} />,
   });

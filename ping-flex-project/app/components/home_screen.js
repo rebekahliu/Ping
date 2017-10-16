@@ -7,6 +7,7 @@ import {
   Text,
   View,
   Button,
+  Platform,
   StyleSheet,
   Alert,
   FlatList,
@@ -46,6 +47,7 @@ class HomeScreen extends React.Component {
   static navigationOptions({navigation}) {
     return {
       title: 'Home',
+            headerStyle: (Platform.OS === 'ios') ? {} : {paddingLeft: 10, paddingRight:10, marginTop: 20},
       headerRight: <Button onPress={()=>{navigation.navigate('Profile')}} title="Profile"/>,
       headerLeft: null,
     };

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   Button,
+  Platform,
   StyleSheet,
 
 } from 'react-native';
@@ -31,6 +32,7 @@ class PingMap extends React.Component {
     let chatroomId = navigation.state.params.pingedFriend.chatroom_id
     return {
       title: `${navigation.state.params.pingedFriend.friend.name}`,
+            headerStyle: (Platform.OS === 'ios') ? {} : {paddingLeft: 10, paddingRight:10, marginTop: 20},
       headerRight: <Button
         onPress={()=>navigation.navigate('MessageTest', {chatroomId, friendName: navigation.state.params.pingedFriend.friend.name})}
         title='Chat'/>,

@@ -6,6 +6,7 @@ import {
   Text,
   View,
   Image,
+  Platform,
   StyleSheet,
   FlatList
 } from 'react-native';
@@ -19,6 +20,7 @@ class AddedMe extends React.Component {
 
   static navigationOptions() {
     return {
+      headerStyle: (Platform.OS === 'ios') ? {} : {paddingLeft: 10, paddingRight:10, marginTop: 20},
       title: 'Pending Requests',
     };
   };

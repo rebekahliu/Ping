@@ -4,6 +4,10 @@ import ActionCableProvider from 'react-actioncable-provider';
 
 import ChatChannel from './chat_channel';
 
+import {
+  Platform,
+} from 'react-native';
+
 const cable = ActionCable.createConsumer('wss://gentle-anchorage-13426.herokuapp.com/cable');
 
 // export default function Container (props) {
@@ -25,6 +29,7 @@ export default class Container extends React.Component {
   static navigationOptions({navigation}) {
     return {
       title: `${navigation.state.params.friendName}`,
+            headerStyle: (Platform.OS === 'ios') ? {} : {paddingLeft: 10, paddingRight:10, marginTop: 20},
       headerBackTitle: null,
     };
   };
