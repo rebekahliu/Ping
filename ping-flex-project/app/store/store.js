@@ -8,3 +8,17 @@ const configureStore = (preloadedState = {}) => (
 );
 
 export default configureStore;
+
+// export default function configureStore(preloadedState = {}) {
+//   const store = createStore(RootReducer, preloadedState, applyMiddleware(thunk, logger));
+//
+//   if (module.hot) {
+//     // Enable Webpack hot module replacement for reducers
+//     module.hot.accept('../reducers', () => {
+//       const nextRootReducer = require('../reducers/root_reducer');
+//       store.replaceReducer(nextRootReducer);
+//     });
+//   }
+//
+//   return store;
+// }

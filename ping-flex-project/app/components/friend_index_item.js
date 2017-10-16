@@ -15,8 +15,8 @@ class FriendIndexItem extends React.Component {
     this.openChat = this.openChat.bind(this);
   }
 
-  openChat(chatroomId) {
-    this.props.navigation.navigate('MessageTest', {chatroomId});
+  openChat(chatroomId, friendName) {
+    this.props.navigation.navigate('MessageTest', {chatroomId, friendName});
   }
 
   render() {
@@ -29,7 +29,7 @@ class FriendIndexItem extends React.Component {
           <Text style={styles.name}>{friend.name}</Text>
         </View>
         <Button
-          onPress={()=>this.openChat(friend.chatroom_id)}
+          onPress={()=>this.openChat(friend.chatroom_id, friend.name)}
           title='chat'/>
       </TouchableOpacity>
     );

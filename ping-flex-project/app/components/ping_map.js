@@ -28,11 +28,11 @@ class PingMap extends React.Component {
 
 
   static navigationOptions({navigation}) {
-    let chatroomId = navigation.state.params.pingedFriend.friend.chatroom_id
+    let chatroomId = navigation.state.params.pingedFriend.chatroom_id
     return {
       title: `${navigation.state.params.pingedFriend.friend.name}`,
       headerRight: <Button
-        onPress={()=>navigation.navigate('MessageTest', {chatroomId})}
+        onPress={()=>navigation.navigate('MessageTest', {chatroomId, friendName: navigation.state.params.pingedFriend.friend.name})}
         title='Chat'/>,
     };
   };
