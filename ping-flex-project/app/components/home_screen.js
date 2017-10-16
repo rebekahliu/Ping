@@ -58,7 +58,6 @@ class HomeScreen extends React.Component {
       let myLoc = {};
       //if it's android, we cant get current position, so we'll grab from the database.
       if(Platform.OS === 'android') {
-
         respLoc = await API.getOwnLocation(this.props.session.session_token);
         myLoc = {coords: {latitude: parseFloat(respLoc.lat),longitude: parseFloat(respLoc.lng)}};
       } else {
@@ -158,7 +157,6 @@ class HomeScreen extends React.Component {
       let {pro_pic_url, name} = this.props.currentUser
 
       let pingSendData = {message, pingedFriend: {friend: {location: {lat: myLoc.coords.latitude, lng: myLoc.coords.longitude}, pro_pic_url, name, chatroom_id: response.friend.chatroom_id} }}
-      debugger
       API.sendPushNotificationAsync(response.friend.friend.facebook_id, pingSendData);
       //go to mapView
       this.props.navigation.navigate('PingMap', {myLoc, pingedFriend: response.friend});
