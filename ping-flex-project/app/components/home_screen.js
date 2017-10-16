@@ -63,7 +63,6 @@ class HomeScreen extends React.Component {
       } else {
         myLoc = await Expo.Location.getCurrentPositionAsync();
       }
-
       this.props.navigation.navigate('PingMap', {myLoc, pingedFriend: notification.data.pingedFriend});
     };
 
@@ -156,7 +155,7 @@ class HomeScreen extends React.Component {
 
       let {pro_pic_url, name} = this.props.currentUser
 
-      let pingSendData = {message, pingedFriend: {friend: {location: {lat: myLoc.coords.latitude, lng: myLoc.coords.longitude}, pro_pic_url, name, chatroom_id: response.friend.chatroom_id} }}
+      let pingSendData = {message, pingedFriend: {chatroom_id: response.friend.chatroom_id, friend: {location: {lat: myLoc.coords.latitude, lng: myLoc.coords.longitude}, pro_pic_url, name} }}
       API.sendPushNotificationAsync(response.friend.friend.facebook_id, pingSendData);
       //go to mapView
       this.props.navigation.navigate('PingMap', {myLoc, pingedFriend: response.friend});
