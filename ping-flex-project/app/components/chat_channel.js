@@ -8,10 +8,13 @@ import {
   FlatList,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
 } from 'react-native';
+
 import { GiftedChat } from 'react-native-gifted-chat';
 import {connect} from 'react-redux';
+
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 import {fetchMessages} from '../actions/message_actions';
 import MessageAPI from '../util/message_api_util';
@@ -96,11 +99,14 @@ class ChatChannel extends React.Component {
 
   render() {
     return (
-      <GiftedChat
-       messages={this.state.messages.sort(this.compare).reverse()}
-       onSend={(messages) => this.onSend(messages[0])}
-       user={{_id: this.props.userId}}
-     />
+      <View style={{flex: 1}}>
+        <GiftedChat
+          messages={this.state.messages.sort(this.compare).reverse()}
+          onSend={(messages) => this.onSend(messages[0])}
+          user={{_id: this.props.userId}}
+          />
+        {Platform.OS === 'android' ? <KeyboardSpacer /> : null}
+      </View>
     );
   }
 };
