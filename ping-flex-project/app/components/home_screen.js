@@ -80,10 +80,10 @@ class HomeScreen extends React.Component {
 
 
   componentWillMount() {
+    API.registerForPushNotificationsAsync(this.props.session.session_token);
     this._startWatch();
     this._notificationSubscription = Notifications.addListener(this._handleNotification);
     this.props.getFriends(this.props.session.session_token);
-    API.registerForPushNotificationsAsync(this.props.session.session_token);
     BackHandler.addEventListener('hardwareBackPress', () => {
      return true;
     });
@@ -158,7 +158,7 @@ class HomeScreen extends React.Component {
       let {pro_pic_url, name} = this.props.currentUser
 
       let pingSendData = {message, pingedFriend: {friend: {location: {lat: myLoc.coords.latitude, lng: myLoc.coords.longitude}, pro_pic_url, name, chatroom_id: response.friend.chatroom_id} }}
-
+      debugger
       API.sendPushNotificationAsync(response.friend.friend.facebook_id, pingSendData);
       //go to mapView
       this.props.navigation.navigate('PingMap', {myLoc, pingedFriend: response.friend});
@@ -174,6 +174,14 @@ class HomeScreen extends React.Component {
     }
   }
 
+  _noFriends() {
+    if (!this.props.friends.length) {
+      return (
+        <Text style={styles.noFriends}>No friends added yet. Go to profile to add friends!</Text>
+      );
+    }
+  }
+
 
   render() {
     const customIcon1 = icons[this.props.currentUser.custom_ping_icons[0]];
@@ -182,6 +190,7 @@ class HomeScreen extends React.Component {
 
     return (
       <View style={styles.container}>
+        {this._noFriends()}
         <FlatList style={styles.friendList}
           data={this.props.friends}
           extraData={this.state}
