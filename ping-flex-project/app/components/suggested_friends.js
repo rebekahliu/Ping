@@ -40,7 +40,7 @@ class SuggestedFriends extends React.Component {
   _noFriends() {
     if (!this.props.friends.length) {
       return (
-        <Text style={styles.noFriends}>No Friends Found</Text>
+        <Text style={styles.noFriends}>No more Facebook friends on Ping</Text>
       );
     }
   }

@@ -40,7 +40,7 @@ class AddedMe extends React.Component {
   _noFriends() {
     if (!this.props.friends.length) {
       return (
-        <Text style={styles.noFriends}>No Requests</Text>
+        <Text style={styles.noFriends}>No pending requests</Text>
       );
     }
   }
