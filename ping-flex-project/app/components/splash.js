@@ -54,17 +54,17 @@ class Splash extends React.Component {
   }
 
   async componentDidMount() {
-    const resp = await Store.model('fbToken').find();
-    if(!resp || Object.keys(resp[resp.length-1])
- < 4) {
-      this.props.navigation.navigate('Login');
-    } else {
-      let fbId = resp[resp.length - 1].fbId
-      let token = resp[resp.length - 1].token
-      await this.props.login(fbId, token);
-      debugger;
-      this.props.navigation.navigate('HomeScreen');
-    }
+    const timeout = setTimeout( async function() {
+      const resp = await Store.model('fbToken').find();
+      if(!resp || Object.keys(resp[resp.length - 1]) < 4) {
+        this.props.navigation.navigate('Login');
+      } else {
+        let fbId = resp[resp.length - 1].fbId;
+        let token = resp[resp.length - 1].token;
+        await this.props.login(fbId, token);;
+        this.props.navigation.navigate('HomeScreen');
+      }
+    }.bind(this), 2000)
   }
 
   render() {

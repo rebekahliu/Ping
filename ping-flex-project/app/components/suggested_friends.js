@@ -21,10 +21,6 @@ class SuggestedFriends extends React.Component {
     this.props.getFriends(this.props.token);
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps.friends);
-  }
-
   _renderFriends({item}) {
     return (
       <AddFriendItem friend={item}
