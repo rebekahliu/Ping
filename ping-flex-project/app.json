@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "ping-flex-project",
-    "description": "An empty new project",
-    "slug": "ping-flex-project",
+    "name": "Ping",
+    "description": "Ping is a social location-sharing app. When you ping your friend to get their location, they're notified with your location. Coordinating social plans with ping is easier and faster, all while staying privacy-conscious",
+    "slug": "Ping",
     "privacy": "public",
     "sdkVersion": "21.0.0",
     "version": "1.0.0",
