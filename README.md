@@ -1,6 +1,6 @@
 # Ping
 
-[Expo Link](https://expo.io/@tkettle220/ping-flex-project)
+[Expo Link](https://expo.io/@tkettle220/Ping)
 
 [Ping Demo](https://rebekahliu.github.io/ping-demo-page/)
 
