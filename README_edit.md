@@ -11,3 +11,23 @@ In our day to day lives, we often find ourselves texting friends asking about lo
 ## The Solution
 
 Ping is unique in that it allows you access to friend location 24/7, but due to the reciprocal location sharing, users can't abuse the feature, or use it in a creepy way. By alerting people when you've pinged them, Ping makes sure users are only requesting location info when they have good reason to. Reciprocal location sharing also helps speed the process of arranging to meet up somewhere, or coordinate plans in general. Not only does reciprocal location sharing prevent misuse of the app, it's the natural progression of "where are you?" conversations anyways! Ping makes location sharing easier, faster, more accessible, and more private, all at once.
+
+## Functionalities
+
+- Facebook auth
+- Suggested friends list from FB
+- Location sharing (based on visibility radius)
+- Emergency pings (overrides visibility radius) + other kinds?
+- In-app messaging
+- Profile customization (visibility radius, safe locations)
+- Demo Website
+
+## Technologies
+
+- Ruby on Rails
+- React Native
+- Map APIs (Geokit)
+- Messaging APIs
+- Facebook Graph API (Koala)
+- Redis
+- Expo
