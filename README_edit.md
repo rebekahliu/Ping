@@ -1,5 +1,9 @@
 # Ping
 
+[Expo Link](https://expo.io/@tkettle220/Ping)
+
+[Ping Demo](https://rebekahliu.github.io/ping-demo-page/)
+
 ## Overview
 
 Ping is a privacy-conscious, location-sharing mobile app. When you ping your friends to get their location, the app automatically sends them your location too. By leveraging social relationship and trust, Ping allows users to make their location available 24/7, but ensures that location is only accessed when it matters.
