@@ -18,13 +18,12 @@ Ping is unique in that it allows you access to friend location 24/7, but due to 
 
 ## Functionalities
 
-- Facebook auth
-- Suggested friends list from FB
-- Location sharing (based on visibility radius)
+### Facebook Authenication
+### Friend Suggestions
+### Location Sharing (based on visibility radius)
 - Emergency pings (overrides visibility radius) + other kinds?
-- In-app messaging
-- Profile customization (visibility radius, safe locations)
-- Demo Website
+### In-app Messaging
+### Profile Customization (visibility radius, safe locations)
 
 ## Technologies
 
