@@ -20,6 +20,9 @@ Ping is unique in that it allows you access to friend location 24/7, but due to 
 
 ### Facebook Authenication
 ### Friend Suggestions
+
+Ping is able to dynamically suggest friends for users to add. By comparing the user's Facebook friends with the list of existing Ping users, we are able to provide the user with a list of all their friends on Ping.
+
 ### Location Sharing (based on visibility radius)
 - Emergency pings (overrides visibility radius) + other kinds?
 ### In-app Messaging
