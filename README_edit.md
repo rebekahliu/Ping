@@ -28,6 +28,8 @@ Ping is able to dynamically suggest friends for users to add. By comparing the u
 ### In-app Messaging
 ### Profile Customization (visibility radius, safe locations)
 
+With Ping's profile customization, users are able to control when and where their friends can get their locations.
+
 ## Technologies
 
 - Ruby on Rails
